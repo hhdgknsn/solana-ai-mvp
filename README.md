@@ -27,11 +27,12 @@ solana-ai-mvp/
 ├── docker-compose.yml
 ├── .gitignore
 ├── README.md
+```
 
 
-Getting Started
+## Getting Started
 
-Ensure you have the following installed:
+### Ensure you have the following installed:
 Docker Desktop
 Node.js
 NPM
@@ -40,15 +41,15 @@ Solana CLI
 Anchor CLI
 Rust (on WSL Ubuntu if using Windows)
 
-Clone the repository:
+### Clone the repository:
 git clone https://github.com/yourusername/solana-ai-mvp.git
 cd solana-ai-mvp
 
-Build and run the Docker containers:
+### Build and run the Docker containers:
 docker-compose up --build
 
-Start the services:
+### Start the services:
 docker-compose up
 
-Access the frontend:
+### Access the frontend:
 Open your browser and navigate to http://localhost:3000.
