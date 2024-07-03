@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is an AI-powered tool designed to streamline the development of Minimum Viable Products (MVPs) on the Solana blockchain. The tool generates both on-chain Solana smart contract code and front-end code based on user prompts, significantly reducing the time and effort required to build functional MVPs.
+This project is a basic POC implementation application of an AI-powered tool designed to streamline the development of Minimum Viable Products (MVPs) on the Solana blockchain. The POC application possesses basic functionality in order to display and demonstrate the feasability to develop a fully functional tool in the future.
 
 ## Analysis Report
 
