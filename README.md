@@ -4,6 +4,11 @@
 
 This project is an AI-powered tool designed to streamline the development of Minimum Viable Products (MVPs) on the Solana blockchain. The tool generates both on-chain Solana smart contract code and front-end code based on user prompts, significantly reducing the time and effort required to build functional MVPs.
 
+## Analysis Report
+
+A comprehensive analysis report can be viewed on google docs: https://docs.google.com/document/d/1EtWiKpAvXo-ZEYBQapJniCfVljpFziPKsVWO4DSZlR0/edit?usp=sharing
+or as a PDF: https://github.com/hhdgknsn/solana-ai-mvp/blob/master/Analysis%20Report_%20AI-Powered%20Solana%20MVP%20Generator.pdf 
+
 ## Directory Structure
 
 ```plaintext
