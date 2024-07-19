@@ -3,6 +3,7 @@ import '../styles/DevnetPlayground.css';
 
 const DevnetPlayground = () => {
   const [gpt4Output, setGpt4Output] = useState('');
+  const [testData, setTestData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getGpt4Output = async () => {
@@ -33,8 +34,22 @@ const DevnetPlayground = () => {
     }
   };
 
+  const getTestData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/get-test-data');
+      const data = await response.json();
+      setTestData(data);
+    } catch (error) {
+      console.error('Error fetching test data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getSavedOutput();
+    getTestData();
   }, []);
 
   return (
@@ -48,6 +63,12 @@ const DevnetPlayground = () => {
         <div className="output-container">
           <h2>GPT-4 Output:</h2>
           <pre>{gpt4Output}</pre>
+        </div>
+      )}
+      {testData && (
+        <div className="test-data-container">
+          <h2>Test Data:</h2>
+          <pre>{JSON.stringify(testData, null, 2)}</pre>
         </div>
       )}
     </div>

@@ -22,65 +22,64 @@ const filePath = path.join(__dirname, 'account_design.json');
 const testFilePath = path.join(__dirname, 'account_design_test.json');
 const gpt4OutputPath = path.join(__dirname, 'gpt4_output.json');
 
-// Define the updated empty template structure
-const emptyTemplate = {
+const testData = {
   "user_accounts": [
     {
-      "account_type": "", 
-      "public_key": "",
-      "private_key": "", 
-      "owner": "", 
-      "balance": "",
-      "creation_timestamp": "",
-      "nonce": "",
-      "name": "",
-      "metadata": "",
-      "email": "",
-      "permissions": "",
-      "associated_programs": "",
-      "transaction_history": "",
-      "settings": "",
-      "status": "",
-      "expiration_date": "",
-      "profile_info": "",
+      "account_type": "User",
+      "public_key": "A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6",
+      "private_key": "1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7",
+      "owner": "UserOwnerExample",
+      "balance": "10000",
+      "creation_timestamp": "2023-07-19T12:34:56Z",
+      "nonce": "123456",
+      "name": "Alice",
+      "metadata": "Example metadata",
+      "email": "alice@example.com",
+      "permissions": "ReadWrite",
+      "associated_programs": "Program1, Program2",
+      "transaction_history": "Tx1, Tx2, Tx3",
+      "settings": "User settings",
+      "status": "Active",
+      "expiration_date": "2024-07-19T12:34:56Z",
+      "profile_info": "Profile info for Alice",
       "relationships": [
         {
-          "related_account_id": "",
-          "relationship_type": "",
-          "details": ""
+          "related_account_id": "RelatedAccountID1",
+          "relationship_type": "Friend",
+          "details": "Details about relationship"
         }
       ],
       "security": {
-        "requirements": "",
-        "audit_logging": ""
+        "requirements": "Password, 2FA",
+        "audit_logging": "Enabled"
       },
       "validation_rules": [
         {
-          "field_name": "",
-          "validation_type": "",
-          "constraints": ""
+          "field_name": "email",
+          "validation_type": "regex",
+          "constraints": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
         }
       ],
       "events": [
         {
-          "event_type": "",
-          "event_data": ""
+          "event_type": "Login",
+          "event_data": "User logged in"
         }
       ],
       "error_handling": {
         "error_codes": [
           {
-            "code": 0,
-            "message": ""
+            "code": 101,
+            "message": "Invalid email format"
           }
         ]
       },
       "testing": {
         "test_cases": [
           {
-            "test_case_id": "",
-            "description": "",
-            "expected_result": ""
+            "test_case_id": "TC1",
+            "description": "Test email validation",
+            "expected_result": "Invalid email error"
           }
         ]
       }
@@ -89,68 +88,78 @@ const emptyTemplate = {
   "program_accounts": [
     {
       "account_type": "ProgramAccount",
-      "program_type": "",
-      "public_key": "",
-      "private_key": "", // Optional, similar to user accounts if needed
-      "owner": "",
-      "name": "",
-      "code_hash": "",
-      "creation_timestamp": "",
-      "version": "",
-      "metadata": "",
-      "status": "",
-      "associated_users": [],
+      "program_type": "Lending",
+      "public_key": "B1C2D3E4F5G6H7I8J9K0L1M2N3O4P5Q6R7S8T9U0V1W2X3Y4Z5",
+      "private_key": "2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A",
+      "owner": "ProgramOwnerExample",
+      "name": "Lending Program",
+      "code_hash": "a1b2c3d4e5f6g7h8i9j0",
+      "creation_timestamp": "2023-07-19T12:34:56Z",
+      "version": "1.0.0",
+      "metadata": "Lending program metadata",
+      "status": "Deployed",
+      "associated_users": ["User1", "User2"],
       "instructions": [
         {
-          "instruction_name": "",
+          "instruction_name": "Deposit",
           "parameters": [
             {
-              "name": "",
-              "type": "",
+              "name": "amount",
+              "type": "u64",
+              "required": true
+            }
+          ]
+        },
+        {
+          "instruction_name": "Withdraw",
+          "parameters": [
+            {
+              "name": "amount",
+              "type": "u64",
               "required": true
             }
           ]
         }
       ],
-      "permissions": "",
-      "settings": "",
+      "permissions": "ReadWrite",
+      "settings": "Program settings",
       "relationships": [
         {
-          "related_account_id": "",
-          "relationship_type": "",
-          "details": ""
+          "related_account_id": "RelatedProgramID1",
+          "relationship_type": "Dependency",
+          "details": "Details about program relationship"
         }
       ],
       "security": {
-        "requirements": "",
-        "audit_logging": ""
+        "requirements": "Secure communication",
+        "audit_logging": "Enabled"
       },
       "performance_metrics": [
         {
-          "metric": "",
-          "description": ""
+          "metric": "TransactionThroughput",
+          "description": "Number of transactions per second"
         }
       ],
       "integration_points": [
         {
-          "type": "",
-          "description": ""
+          "type": "OracleService",
+          "description": "Integration with price oracle for dynamic interest rates"
         }
       ],
       "error_handling": {
         "error_codes": [
           {
-            "code": 0,
-            "message": ""
+            "code": 201,
+            "message": "Insufficient funds"
           }
         ]
       },
       "testing": {
         "test_cases": [
           {
-            "test_case_id": "",
-            "description": "",
-            "expected_result": ""
+            "test_case_id": "TC2",
+            "description": "Test deposit function",
+            "expected_result": "Deposit successful"
           }
         ]
       }
@@ -218,6 +227,11 @@ app.get('/api/get-design', async (req, res) => {
   }
 });
 
+// Endpoint to get the test data
+app.get('/api/get-test-data', (req, res) => {
+  res.status(200).json(testData);
+});
+
 // Define the GPT-4 API call function
 async function callGpt4Api(accountDesign) {
   const prompt = `
@@ -253,7 +267,7 @@ async function callGpt4Api(accountDesign) {
       },
       {
         headers: {
-          'Authorization': `Bearer ${"sk-None-cQW10tl3zYKq3X7nVGKQT3BlbkFJsjsCpLduooVDm7x2CXGV"}`,
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
           'Content-Type': 'application/json'
         }
       }
