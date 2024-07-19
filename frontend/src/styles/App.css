@@ -1,0 +1,66 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+  }
+  
+  .navbar {
+    background-color: #343a40;
+    padding: 10px 20px;
+    
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-links li {
+    margin: 0 15px;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .nav-links a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  h1, h2 {
+    color: #343a40;
+  }
+  
+  button {
+    font-size: 16px;
+  }
+  
+  textarea, input[type="text"] {
+    font-size: 16px;
+  }
+  
+  pre {
+    font-family: 'Courier New', Courier, monospace;
+  }
+  

@@ -1,0 +1,14 @@
+/* styles/DevnetPlayground.css */
+.playground-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.playground-container h1 {
+  text-align: center;
+}
+
+.playground-container p {
+  text-align: center;
+}

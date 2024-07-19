@@ -1,0 +1,14 @@
+/* styles/FrontendPlayground.css */
+.frontend-playground-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.frontend-playground-container h1 {
+  text-align: center;
+}
+
+.frontend-playground-container p {
+  text-align: center;
+}
