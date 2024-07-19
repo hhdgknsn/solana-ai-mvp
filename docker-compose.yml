@@ -21,6 +21,7 @@ services:
       - "8000:8000"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - OPENAI_API_KEY=sk-None-cQW10tl3zYKq3X7nVGKQT3BlbkFJsjsCpLduooVDm7x2CXGV
     develop:
       watch:
         - action: sync+restart

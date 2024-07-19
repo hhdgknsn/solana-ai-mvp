@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import AccountDesign from './pages/AccountDesign.js';
+import AccountDesign from './pages/AccountDesign/AccountDesign.js';
 import DevnetPlayground from './pages/DevnetPlayground.js';
 import FrontendPlayground from './pages/FrontendPlayground.js';
 import '../src/styles/App.css';

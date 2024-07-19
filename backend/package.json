@@ -13,5 +13,8 @@
         "node-fetch": "^2.6.1",
         "openai": "^4.52.7",
         "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "dotenv": "^16.4.5"
     }
 }

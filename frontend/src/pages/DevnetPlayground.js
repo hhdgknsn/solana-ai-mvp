@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/DevnetPlayground.css';
 
 const DevnetPlayground = () => {
+  const [gpt4Output, setGpt4Output] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const getGpt4Output = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/get-gpt4-output', {
+        method: 'POST',
+      });
+      const data = await response.json();
+      setGpt4Output(data.gpt4Output);
+    } catch (error) {
+      console.error('Error fetching GPT-4 output:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSavedOutput = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/get-saved-output');
+      const data = await response.json();
+      setGpt4Output(data.gpt4Output);
+    } catch (error) {
+      console.error('Error fetching saved GPT-4 output:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getSavedOutput();
+  }, []);
+
   return (
     <div className="playground-container">
       <h1>Devnet Playground</h1>
       <p>Here you can test your Rust code and its test cases on the Solana Devnet.</p>
-      {/* Add further functionality for testing code here */}
+      <button onClick={getGpt4Output} disabled={loading}>
+        {loading ? 'Loading...' : 'Generate Code'}
+      </button>
+      {gpt4Output && (
+        <div className="output-container">
+          <h2>GPT-4 Output:</h2>
+          <pre>{gpt4Output}</pre>
+        </div>
+      )}
     </div>
   );
 };
