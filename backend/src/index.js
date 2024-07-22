@@ -18,7 +18,7 @@ const port = 8000;
 app.use(express.json());
 app.use(cors());
 
-const filePath = path.join(__dirname, 'account_design_test.json');
+const mvpFilePath = path.join(__dirname, 'mvp-example.json');
 const gpt4OutputPath = path.join(__dirname, 'gpt4_output.json');
 
 // Ensure the directory exists and create the file if it doesn't exist
@@ -45,8 +45,8 @@ async function ensureFileExists(file) {
 
 // Initialize function to ensure directory and file existence
 async function initialize() {
-  await ensureDirectoryExists(path.dirname(filePath));
-  await ensureFileExists(filePath);
+  await ensureDirectoryExists(path.dirname(mvpFilePath));
+  await ensureFileExists(mvpFilePath);
   await ensureFileExists(gpt4OutputPath);
 }
 
@@ -54,65 +54,69 @@ initialize().catch(err => {
   console.error('Initialization error:', err);
 });
 
-// Endpoint to save the account design
+// Endpoint to save the mvp-example
 app.post('/api/save', async (req, res) => {
-  const accountDesign = req.body;
-  console.log(`Received account design: ${JSON.stringify(accountDesign)}`);
+  const mvpExample = req.body;
+  console.log(`Received MVP example: ${JSON.stringify(mvpExample)}`);
 
   try {
-    await fs.writeFile(filePath, JSON.stringify(accountDesign, null, 2));
-    res.status(200).json({ message: 'Account design saved successfully', design: accountDesign });
+    await fs.writeFile(mvpFilePath, JSON.stringify(mvpExample, null, 2));
+    res.status(200).json({ message: 'MVP example saved successfully', example: mvpExample });
   } catch (err) {
     console.error('Error writing file:', err);
-    res.status(500).json({ error: 'Failed to save account design' });
+    res.status(500).json({ error: 'Failed to save MVP example' });
   }
 });
 
-// Endpoint to get the account design
-app.get('/api/get-design', async (req, res) => {
+// Endpoint to get the mvp-example
+app.get('/api/get-mvp-example', async (req, res) => {
   try {
-    const data = await fs.readFile(filePath, 'utf8');
+    const data = await fs.readFile(mvpFilePath, 'utf8');
     res.status(200).json(JSON.parse(data));
   } catch (err) {
     console.error('Error reading file:', err);
-    // Return the empty template if reading fails
     res.status(200).json({});
   }
 });
 
-// Endpoint to get the test data
-app.get('/api/get-test-data', async (req, res) => {
-  try {
-    const data = await fs.readFile(filePath, 'utf8');
-    res.status(200).json(JSON.parse(data));
-  } catch (err) {
-    console.error('Error reading test data file:', err);
-    res.status(500).json({ error: 'Failed to read test data file' });
-  }
-});
+// Function to construct the initial prompt based on the contents of mvp-example.json
+function constructInitialPrompt(mvpExample) {
+  const { general, account_design: accountDesign, functions } = mvpExample;
+
+  const accounts = [...accountDesign.user_accounts, ...accountDesign.program_accounts];
+  const accountsStr = accounts.map((account, index) => {
+    const fieldsStr = Object.keys(account).map(field => `${field}: ${typeof account[field]}`).join(', ');
+    return `${index + 1}. ${account.account_type}: { ${fieldsStr} }`;
+  }).join('\n');
+
+  const functionsStr = functions.map((func, index) => {
+    const paramsStr = Object.keys(func.params).map(param => `${param}: ${func.params[param]}`).join(', ');
+    return `${index + 1}. ${func.name}: ${func.description} (params: { ${paramsStr} })`;
+  }).join('\n');
+
+  return `
+    You are a skilled Solana blockchain developer. Based on the provided user and program account details, generate a complete Solana Anchor program in Rust.
+
+    Project Name: ${general.project_name}
+    Purpose: ${general.mvp_description}
+
+    Accounts:
+    ${accountsStr}
+
+    Functions:
+    ${functionsStr}
+
+    Generate the complete program including:
+    - Account structures with specified fields.
+    - Function implementations for each described function.
+    - Error handling and validation as needed.
+    - Security measures as specified.
+    - Testing functions to ensure the program works as expected.
+  `;
+}
 
 // Define the GPT-4 API call function
-async function callGpt4Api(accountDesign) {
-  const prompt = `
-    You are a skilled Solana blockchain developer. Based on the provided user and program account details, generate a sample Solana on-chain program code, test cases, and front-end code.
-
-    Here are the details of the user accounts and program accounts:
-
-    ${JSON.stringify(accountDesign, null, 2)}
-
-    Please generate the following:
-    1. Solana on-chain program code in Rust based on the provided user and program account details.
-    2. Test cases in Rust to validate the functionality of the generated on-chain programs.
-    3. Front-end code in JavaScript for interacting with the Solana programs using the @solana/web3.js library.
-
-    Ensure to include:
-    - Validation and error handling mechanisms as specified in the user and program account details.
-    - Security requirements and audit logging features.
-    - Any necessary integration points and performance metrics.
-
-    Start by generating the Solana on-chain program code.
-  `;
-
+async function callGpt4Api(prompt) {
   try {
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
@@ -140,10 +144,17 @@ async function callGpt4Api(accountDesign) {
 // Endpoint to get the GPT-4 API output
 app.post('/api/get-gpt4-output', async (req, res) => {
   try {
-    const accountDesign = await fs.readFile(filePath, 'utf8');
-    const gpt4Output = await callGpt4Api(JSON.parse(accountDesign));
-    await fs.writeFile(gpt4OutputPath, gpt4Output, 'utf8');
-    res.status(200).json({ gpt4Output });
+    const mvpExample = await fs.readFile(mvpFilePath, 'utf8');
+    const parsedExample = JSON.parse(mvpExample);
+    const initialPrompt = constructInitialPrompt(parsedExample);
+
+    // Call GPT-4 API with the initial prompt
+    const generatedCode = await callGpt4Api(initialPrompt);
+
+    // Save the generated code
+    await fs.writeFile(gpt4OutputPath, generatedCode, 'utf8');
+
+    res.status(200).json({ gpt4Output: generatedCode });
   } catch (err) {
     console.error('Error getting GPT-4 output:', err);
     res.status(500).json({ error: 'Failed to get GPT-4 output' });
@@ -157,7 +168,7 @@ app.get('/api/get-saved-output', async (req, res) => {
     res.status(200).json({ gpt4Output: data });
   } catch (err) {
     console.error('Error reading GPT-4 output file:', err);
-    res.status500().json({ error: 'Failed to read GPT-4 output file' });
+    res.status(500).json({ error: 'Failed to read GPT-4 output file' });
   }
 });
 

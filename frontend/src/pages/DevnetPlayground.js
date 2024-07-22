@@ -4,6 +4,7 @@ import '../styles/DevnetPlayground.css';
 const DevnetPlayground = () => {
   const [gpt4Output, setGpt4Output] = useState('');
   const [testData, setTestData] = useState(null);
+  const [mvpExample, setMvpExample] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getGpt4Output = async () => {
@@ -47,9 +48,23 @@ const DevnetPlayground = () => {
     }
   };
 
+  const getMvpExample = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/get-mvp-example');
+      const data = await response.json();
+      setMvpExample(data);
+    } catch (error) {
+      console.error('Error fetching MVP example:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getSavedOutput();
     getTestData();
+    getMvpExample();
   }, []);
 
   return (
@@ -69,6 +84,12 @@ const DevnetPlayground = () => {
         <div className="test-data-container">
           <h2>Test Data:</h2>
           <pre>{JSON.stringify(testData, null, 2)}</pre>
+        </div>
+      )}
+      {mvpExample && (
+        <div className="mvp-example-container">
+          <h2>MVP Example:</h2>
+          <pre>{JSON.stringify(mvpExample, null, 2)}</pre>
         </div>
       )}
     </div>

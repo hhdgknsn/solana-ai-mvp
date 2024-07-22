@@ -1,14 +1,47 @@
 /* styles/DevnetPlayground.css */
+
 .playground-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  background-color: var(--playground-bg-color); /* Use CSS variable for background */
+  color: var(--playground-text-color); /* Use CSS variable for text color */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
 }
 
 .playground-container h1 {
   text-align: center;
+  color: var(--text-color); /* Use CSS variable for text color */
 }
 
 .playground-container p {
   text-align: center;
+  color: var(--text-color); /* Use CSS variable for text color */
+}
+
+.output-container,
+.test-data-container {
+  margin-top: 20px;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: var(--button-bg-color); /* Use CSS variable for background */
+  color: var(--button-text-color); /* Use CSS variable for text color */
+  border: 2px solid var(--button-border-color); /* Use CSS variable for border color */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--button-hover-bg-color); /* Use CSS variable for hover background */
+  color: var(--button-hover-text-color); /* Use CSS variable for hover text color */
 }
