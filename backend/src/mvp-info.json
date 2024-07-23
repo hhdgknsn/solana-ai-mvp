@@ -4,7 +4,7 @@
     "mvp_description": "",
     "user_description": ""
   },
-  "account-design":  {
+  "account_design":  {
         "user_accounts": [
           {
             "account_type": "",
@@ -12,129 +12,18 @@
             "private_key": "",
             "owner": "",
             "balance": "",
-            "creation_timestamp": "",
-            "nonce": "",
-            "name": "",
-            "metadata": "",
-            "email": "",
-            "permissions": "",
-            "associated_programs": "",
-            "transaction_history": "",
-            "settings": "",
-            "status": "",
-            "expiration_date": "",
-            "profile_info": "",
-            "relationships": [
-              {
-                "related_account_id": "",
-                "relationship_type": "",
-                "details": ""
-              }
-            ],
-            "security": {
-              "requirements": "",
-              "audit_logging": ""
-            },
-            "validation_rules": [
-              {
-                "field_name": "",
-                "validation_type": "",
-                "constraints": ""
-              }
-            ],
-            "events": [
-              {
-                "event_type": "",
-                "event_data": ""
-              }
-            ],
-            "error_handling": {
-              "error_codes": [
-                {
-                  "code": 0,
-                  "message": ""
-                }
-              ]
-            },
-            "testing": {
-              "test_cases": [
-                {
-                  "test_case_id": "",
-                  "description": "",
-                  "expected_result": ""
-                }
-              ]
-            }
+            "permissions": ""
           }
         ],
         "program_accounts": [
           {
-            "account_type": "ProgramAccount",
+            "account_type": "",
             "program_type": "",
             "public_key": "",
-            "private_key": "",
             "owner": "",
             "name": "",
-            "code_hash": "",
-            "creation_timestamp": "",
-            "version": "",
-            "metadata": "",
-            "status": "",
-            "associated_users": [],
-            "instructions": [
-              {
-                "instruction_name": "",
-                "parameters": [
-                  {
-                    "name": "",
-                    "type": "",
-                    "required": true
-                  }
-                ]
-              }
-            ],
             "permissions": "",
-            "settings": "",
-            "relationships": [
-              {
-                "related_account_id": "",
-                "relationship_type": "",
-                "details": ""
-              }
-            ],
-            "security": {
-              "requirements": "",
-              "audit_logging": ""
-            },
-            "performance_metrics": [
-              {
-                "metric": "",
-                "description": ""
-              }
-            ],
-            "integration_points": [
-              {
-                "type": "",
-                "description": ""
-              }
-            ],
-            "error_handling": {
-              "error_codes": [
-                {
-                  "code": 0,
-                  "message": ""
-                }
-              ]
-            },
-            "testing": {
-              "test_cases": [
-                {
-                  "test_case_id": "",
-                  "description": "",
-                  "expected_result": ""
-                }
-              ]
-            }
+            "settings": ""
           }
         ]
   },
@@ -142,15 +31,8 @@
     {
       "name": "", 
       "description": "",
-      "params": {},
+      "parameters": {},
       "expected_output": ""
     }
-  ],
-  "security": {},
-  "permissions": {},
-  "integration_points": {},
-  "validation rules": {},
-  "test_cases": {},
-  "error_handling": {},
-  "test_env_config": {}
+  ]
 }

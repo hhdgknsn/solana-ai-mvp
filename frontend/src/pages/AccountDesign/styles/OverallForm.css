@@ -1,15 +1,3 @@
-:root {
-  --section-bg-color: #f7f7f7;
-  --section-text-color: #333;
-  --sidebar-bg-color: #fff;
-  --sidebar-text-color: #333;
-  --sidebar-hover-bg-color: #fbfbfb;
-  --button-bg-color: #007bff;
-  --button-text-color: #fff;
-  --button-hover-bg-color: #0056b3;
-  --button-hover-text-color: #fff;
-}
-
 .overall-form-container {
   display: flex;
   flex-direction: row;
@@ -19,6 +7,31 @@
 
 .overall-form-container > * {
   margin: 0 15px;
+  background-color: #fff !important;
+}
+
+.form-inner-section{
+  padding: 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.form-inner-section > * {
+  font-size: 0.7rem;
+  margin: 0 0.5rem;
+  flex: auto;
+}
+.form-inner-section > button {
+  padding: 0 0.2rem;
+  border: none;
+  align-self: flex-end;
+}
+.form-inner-section > label {
+  font-weight: bold;
+  align-self: flex-start;
+  text-align: left;
 }
 
 

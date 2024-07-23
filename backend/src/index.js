@@ -168,13 +168,27 @@ app.get('/api/get-mvp-example', async (req, res) => {
   }
 });
 
+// Endpoint to get the prompt text
+app.get('/api/get-prompt-text', async (req, res) => {
+  try {
+    const mvpExample = await fs.readFile(mvpExampleFilePath, 'utf8');
+    const parsedExample = JSON.parse(mvpExample);
+    const promptText = constructInitialPrompt(parsedExample);
+
+    res.status(200).json({ promptText });
+  } catch (err) {
+    console.error('Error generating prompt text:', err);
+    res.status(500).json({ error: 'Failed to generate prompt text' });
+  }
+});
+
 // Function to construct the initial prompt based on the contents of mvp-example.json
 function constructInitialPrompt(mvpExample) {
   const { general, account_design: accountDesign, functions } = mvpExample;
 
   const accounts = [...accountDesign.user_accounts, ...accountDesign.program_accounts];
   const accountsStr = accounts.map((account, index) => {
-    const fieldsStr = Object.keys(account).map(field => `${field}: ${typeof account[field]}`).join(', ');
+    const fieldsStr = Object.keys(account).map(field => `${field}: ${account[field]}`).join(', ');
     return `${index + 1}. ${account.account_type}: { ${fieldsStr} }`;
   }).join('\n');
 

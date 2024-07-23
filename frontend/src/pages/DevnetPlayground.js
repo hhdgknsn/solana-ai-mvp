@@ -6,6 +6,7 @@ const DevnetPlayground = () => {
   const [gpt4Output, setGpt4Output] = useState('');
   const [mvpExample, setMvpExample] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [promptText, setPromptText] = useState('');
 
   const getGpt4Output = async () => {
     setLoading(true);
@@ -48,16 +49,30 @@ const DevnetPlayground = () => {
     }
   };
 
+  const getPromptText = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/get-prompt-text');
+      const data = await response.json();
+      setPromptText(data.promptText);
+    } catch (error) {
+      console.error('Error fetching prompt text:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getSavedOutput();
     getMvpExample();
+    getPromptText();
   }, []);
 
   return (
     <div className="playground-container">
       <div className='pg-header'>
         <h1>Devnet Playground</h1>
-        <p>Here you can test your Rust code and its test cases on the Solana Devnet.</p>
+        <p>This page injects the MVP specifications into an engineered prompt for input into OpenAI's GPT-4 model and outputs the response.</p>
       </div>
       
       <div className='pg-body'>
@@ -81,8 +96,16 @@ const DevnetPlayground = () => {
             <pre>{JSON.stringify(mvpExample, null, 2)}</pre>
           </div>
         )}
+        
+        {promptText && (
+          <div className="prompt-container">
+            <div className='container-header'>
+              <h2>Engineered Prompt:</h2>
+            </div>
+            <pre>{promptText}</pre>
+          </div>
+        )}
       </div>
-
     </div>
   );
 };

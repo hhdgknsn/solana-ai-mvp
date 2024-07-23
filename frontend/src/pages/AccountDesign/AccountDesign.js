@@ -11,62 +11,95 @@ const AccountDesign = () => {
       user_description: ""
     },
     account_design: {
-      user_accounts: [],
-      program_accounts: []
-    },
-    functions: [],
-    security: {
-      measures: []
-    },
-    permissions: {
-      roles: []
-    },
-    integration_points: {
-      external_apis: []
-    },
-    validation_rules: {
-      rules: []
-    },
-    test_cases: {
-      cases: []
-    },
-    error_handling: {
-      error_codes: []
-    },
-    test_env_config: {
-      platform: "",
-      dependencies: [],
-      setup_instructions: ""
+      user_accounts: [
+        {
+          "account_type": "",
+          "public_key": "",
+          "private_key": "",
+          "owner": "",
+          "balance": "",
+          "permissions": ""
+        }
+      ],
+      program_acconts: [
+        {
+          "account_type": "",
+          "public_key": "",
+          "owner": "",
+          "name": "",
+          "permissions": "",
+          "settings": ""
+        }
+      ],
+      functions: [
+        {
+          "name": "", 
+          "description": "",
+          "parameters": {},
+          "expected_output": ""
+        }
+      ]
     }
   });
 
   const [savedDesign, setSavedDesign] = useState({});
   const [defaultMessage, setDefaultMessage] = useState('');
   const [fetchError, setFetchError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const fetchMvpInfo = async () => {
+    setLoading(true);
     try {
       const response = await axios.get('http://localhost:8000/api/get-mvp-info');
       setFormData(response.data);
       setSavedDesign(response.data);
     } catch (error) {
       setFetchError('Error fetching MVP info: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleFieldChange = (section, index, field, value) => {
+  const handleFieldChange = (section, property=null, index, field, value) => {
     setFormData(prevState => {
+      // Handle case where section itself is an array
+      if (Array.isArray(prevState[section])) {
+        const updatedArray = [...prevState[section]];
+        if (index !== undefined && index !== null) {
+          updatedArray[index] = {
+            ...updatedArray[index],
+            [field]: value,
+          };
+        }
+        return { ...prevState, [section]: updatedArray };
+      }
+  
+      // Handle case where section is an object containing an array property
       const updatedSection = { ...prevState[section] };
-      if (index !== undefined && index !== null) {
-        updatedSection[index] = {
-          ...updatedSection[index],
-          [field]: value,
-        };
+      if (Array.isArray(updatedSection[property])) {
+        const updatedArray = [...updatedSection[property]];
+        if (index !== undefined && index !== null) {
+          updatedArray[index] = {
+            ...updatedArray[index],
+            [field]: value,
+          };
+        }
+        updatedSection[property] = updatedArray;
       } else {
         updatedSection[field] = value;
       }
+  
       return { ...prevState, [section]: updatedSection };
     });
+  };
+  
+  
+
+  const handleKeyPress = (section, index, field, value) => (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(section, index, field, value);
+    }
   };
 
   const handleSubmit = async (section, index, field, value) => {
@@ -130,8 +163,12 @@ const AccountDesign = () => {
 
   return (
     <div className="account-design-container">
-      <h2>Account Design & Use Cases</h2>
+      <div className='account-design-container-header'>
+        <h2>MVP Specifications</h2>
+        <p>This page is for defining the MVP specifications, including the account design and use cases.</p>
+      </div>
       <div className="account-design-container-inner">
+        {loading && <p>Loading...</p>}
         {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
         <form onSubmit={handleFormSubmit}>
           <OverallForm
@@ -140,12 +177,13 @@ const AccountDesign = () => {
             handleSubmit={handleSubmit}
             addField={addField}
             addNestedField={addNestedField}
+            handleKeyPress={handleKeyPress}
           />
           <button type="submit">Save</button>
         </form>
         {defaultMessage && <p>{defaultMessage}</p>}
         <div className="design-overview">
-          <h2>Account Design Overview</h2>
+          <h2>mvp-info.json:</h2>
           <pre>{JSON.stringify(savedDesign, null, 2)}</pre>
         </div>
       </div>
