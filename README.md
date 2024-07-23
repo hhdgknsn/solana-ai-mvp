@@ -2,7 +2,7 @@
 
 ## Overview
 
-AI-Powered Solana MVP Generator is a decentralized application for managing user tokens on the Solana blockchain. This repository contains both the backend and frontend code, which provide API endpoints to interact with the MVP (Minimum Viable Product) data and integrate with the OpenAI GPT-4 API for generating Solana Anchor programs.
+This repository contains both the backend and frontend code for the POC of the AI-powered Solana MVP generator, which provide API endpoints to interact with the MVP (Minimum Viable Product) data and integrate with the OpenAI GPT-4 API for generating Solana Anchor programs.
 
 ## Table of Contents
 
