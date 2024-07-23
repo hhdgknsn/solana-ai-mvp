@@ -3,7 +3,6 @@ import React from 'react';
 const IntegrationPointsForm = ({ integration_points, handleNestedFieldChange, addNestedField }) => {
   return (
     <div className="section">
-      <h2>Integration Points</h2>
       <div className="section-content">
         {integration_points.external_apis.map((api, apiIndex) => (
           <div key={apiIndex}>

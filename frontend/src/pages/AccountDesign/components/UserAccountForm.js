@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField }) => {
+const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField, handleKeyPress }) => {
   const [expandedFormIndex, setExpandedFormIndex] = useState(null);
 
   const toggleFormVisibility = (index) => {
@@ -61,11 +61,12 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
           (account, accountIndex) =>
             expandedFormIndex === accountIndex && (
               <div key={accountIndex} className="account-form-container">
-                <div className="account-form">
+                <div className="account-form section-content">
                   <h3>User Account {accountIndex + 1}</h3>
                   <select
                     value={account.account_type}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'account_type', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'account_type', account.account_type)(e)}
                   >
                     <option value="">Select Account Type</option>
                     <option value="Type1">Type1</option>
@@ -75,96 +76,112 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                     type="text"
                     value={account.public_key || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'public_key', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'public_key', account.public_key)(e)}
                     placeholder="Public Key"
                   />
                   <input
                     type="text"
                     value={account.private_key || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'private_key', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'private_key', account.private_key)(e)}
                     placeholder="Private Key"
                   />
                   <input
                     type="text"
                     value={account.owner || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'owner', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'owner', account.owner)(e)}
                     placeholder="Owner"
                   />
                   <input
                     type="text"
                     value={account.balance || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'balance', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'balance', account.balance)(e)}
                     placeholder="Balance"
                   />
                   <input
                     type="text"
                     value={account.creation_timestamp || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'creation_timestamp', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'creation_timestamp', account.creation_timestamp)(e)}
                     placeholder="Creation Timestamp"
                   />
                   <input
                     type="text"
                     value={account.nonce || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'nonce', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'nonce', account.nonce)(e)}
                     placeholder="Nonce"
                   />
                   <input
                     type="text"
                     value={account.name || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'name', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'name', account.name)(e)}
                     placeholder="Name"
                   />
                   <input
                     type="text"
                     value={account.metadata || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'metadata', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'metadata', account.metadata)(e)}
                     placeholder="Metadata"
                   />
                   <input
                     type="email"
                     value={account.email || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'email', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'email', account.email)(e)}
                     placeholder="Email"
                   />
                   <input
                     type="text"
                     value={account.permissions || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'permissions', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'permissions', account.permissions)(e)}
                     placeholder="Permissions"
                   />
                   <input
                     type="text"
                     value={account.associated_programs || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'associated_programs', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'associated_programs', account.associated_programs)(e)}
                     placeholder="Associated Programs"
                   />
                   <input
                     type="text"
                     value={account.transaction_history || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'transaction_history', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'transaction_history', account.transaction_history)(e)}
                     placeholder="Transaction History"
                   />
                   <input
                     type="text"
                     value={account.settings || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'settings', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'settings', account.settings)(e)}
                     placeholder="Settings"
                   />
                   <input
                     type="text"
                     value={account.status || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'status', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'status', account.status)(e)}
                     placeholder="Status"
                   />
                   <input
                     type="text"
                     value={account.expiration_date || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'expiration_date', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'expiration_date', account.expiration_date)(e)}
                     placeholder="Expiration Date"
                   />
                   <input
                     type="text"
                     value={account.profile_info || ""}
                     onChange={(e) => handleFieldChange('account_design.user_accounts', accountIndex, 'profile_info', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress('account_design.user_accounts', accountIndex, 'profile_info', account.profile_info)(e)}
                     placeholder="Profile Info"
                   />
                   <h3>Relationships</h3>
@@ -174,18 +191,21 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                         type="text"
                         value={relationship.related_account_id || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'related_account_id', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'related_account_id', relationship.related_account_id)(e)}
                         placeholder="Related Account ID"
                       />
                       <input
                         type="text"
                         value={relationship.relationship_type || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'relationship_type', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'relationship_type', relationship.relationship_type)(e)}
                         placeholder="Relationship Type"
                       />
                       <input
                         type="text"
                         value={relationship.details || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'details', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.relationships`, relationshipIndex, 'details', relationship.details)(e)}
                         placeholder="Details"
                       />
                     </div>
@@ -198,12 +218,14 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                     type="text"
                     value={account.security.requirements || ""}
                     onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.security`, 'requirements', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.security`, 'requirements', account.security.requirements)(e)}
                     placeholder="Security Requirements"
                   />
                   <input
                     type="text"
                     value={account.security.audit_logging || ""}
                     onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.security`, 'audit_logging', e.target.value)}
+                    onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.security`, 'audit_logging', account.security.audit_logging)(e)}
                     placeholder="Audit Logging"
                   />
                   <h3>Validation Rules</h3>
@@ -213,6 +235,7 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                         type="text"
                         value={rule || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.validation_rules`, ruleIndex, e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.validation_rules`, ruleIndex, rule)(e)}
                         placeholder="Validation Rule"
                       />
                     </div>
@@ -227,6 +250,7 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                         type="text"
                         value={event || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.events`, eventIndex, e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.events`, eventIndex, event)(e)}
                         placeholder="Event"
                       />
                     </div>
@@ -241,6 +265,7 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                         type="text"
                         value={error || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.error_handling.error_codes`, errorIndex, e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.error_handling.error_codes`, errorIndex, error)(e)}
                         placeholder="Error Message"
                       />
                     </div>
@@ -255,18 +280,21 @@ const UserAccountForm = ({ accounts, handleFieldChange, addField, addNestedField
                         type="text"
                         value={testCase.test_case_id || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, 'test_case_id', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, testCase.test_case_id)(e)}
                         placeholder="Test Case ID"
                       />
                       <input
                         type="text"
                         value={testCase.description || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, 'description', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, testCase.description)(e)}
                         placeholder="Description"
                       />
                       <input
                         type="text"
                         value={testCase.expected_result || ""}
                         onChange={(e) => handleFieldChange(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, 'expected_result', e.target.value)}
+                        onKeyPress={(e) => handleKeyPress(`account_design.user_accounts.${accountIndex}.testing.test_cases`, testCaseIndex, testCase.expected_result)(e)}
                         placeholder="Expected Result"
                       />
                     </div>

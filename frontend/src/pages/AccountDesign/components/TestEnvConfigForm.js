@@ -3,7 +3,6 @@ import React from 'react';
 const TestEnvConfigForm = ({ test_env_config, handleFieldChange }) => {
   return (
     <div className="section">
-      <h2>Test Environment Configuration</h2>
       <div className="section-content">
         <input
           type="text"

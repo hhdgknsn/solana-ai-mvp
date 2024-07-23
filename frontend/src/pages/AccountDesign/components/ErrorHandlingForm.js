@@ -3,7 +3,6 @@ import React from 'react';
 const ErrorHandlingForm = ({ error_handling, handleNestedFieldChange, addNestedField }) => {
   return (
     <div className="section">
-      <h2>Error Handling</h2>
       <div className="section-content">
         {error_handling.error_codes.map((errorCode, errorCodeIndex) => (
           <div key={errorCodeIndex}>

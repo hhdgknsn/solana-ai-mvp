@@ -18,7 +18,8 @@ const port = 8000;
 app.use(express.json());
 app.use(cors());
 
-const mvpFilePath = path.join(__dirname, 'mvp-example.json');
+const mvpInfoFilePath = path.join(__dirname, 'mvp-info.json');
+const mvpExampleFilePath = path.join(__dirname, 'mvp-example.json');
 const gpt4OutputPath = path.join(__dirname, 'gpt4_output.json');
 
 // Ensure the directory exists and create the file if it doesn't exist
@@ -43,10 +44,45 @@ async function ensureFileExists(file) {
   }
 }
 
+async function ensureFileExistsWithContent(file, content) {
+  try {
+    await fs.access(file);
+    console.log(`File ${file} already exists.`);
+    // Log the contents of the file if it already exists
+    const data = await fs.readFile(file, 'utf8');
+    console.log(`Contents of ${file}:`, data);
+  } catch (err) {
+    console.log(`File ${file} does not exist, creating with initial data...`);
+    await fs.writeFile(file, JSON.stringify(content, null, 2), 'utf8');
+    console.log(`File ${file} created with initial data.`);
+  }
+}
+
 // Initialize function to ensure directory and file existence
 async function initialize() {
-  await ensureDirectoryExists(path.dirname(mvpFilePath));
-  await ensureFileExists(mvpFilePath);
+  await ensureDirectoryExists(path.dirname(mvpInfoFilePath));
+
+  const initialData = {
+    general: {
+      project_name: "",
+      mvp_description: "",
+      user_description: ""
+    },
+    account_design: {
+      user_accounts: [],
+      program_accounts: []
+    },
+    functions: [],
+    security: {},
+    permissions: {},
+    integration_points: {},
+    validation_rules: {},
+    test_cases: {},
+    error_handling: {},
+    test_env_config: {}
+  };
+
+  await ensureFileExistsWithContent(mvpInfoFilePath, initialData);
   await ensureFileExists(gpt4OutputPath);
 }
 
@@ -54,28 +90,81 @@ initialize().catch(err => {
   console.error('Initialization error:', err);
 });
 
-// Endpoint to save the mvp-example
+// Endpoint to save the mvp-info
 app.post('/api/save', async (req, res) => {
-  const mvpExample = req.body;
-  console.log(`Received MVP example: ${JSON.stringify(mvpExample)}`);
+  console.log('Endpoint /api/save was called');
+  const mvpInfo = req.body;
+  console.log(`Received MVP info: ${JSON.stringify(mvpInfo)}`);
 
   try {
-    await fs.writeFile(mvpFilePath, JSON.stringify(mvpExample, null, 2));
-    res.status(200).json({ message: 'MVP example saved successfully', example: mvpExample });
+    await fs.writeFile(mvpInfoFilePath, JSON.stringify(mvpInfo, null, 2));
+    res.status(200).json({ message: 'MVP info saved successfully', info: mvpInfo });
   } catch (err) {
     console.error('Error writing file:', err);
-    res.status(500).json({ error: 'Failed to save MVP example' });
+    res.status(500).json({ error: 'Failed to save MVP info' });
+  }
+});
+
+// New endpoint to update a specific field
+app.post('/api/update-field', async (req, res) => {
+  console.log('Endpoint /api/update-field was called');
+  const { section, field, value } = req.body;
+  console.log(`Updating field: ${section}.${field} with value: ${value}`);
+
+  try {
+    const data = await fs.readFile(mvpInfoFilePath, 'utf8');
+    const mvpInfo = JSON.parse(data);
+    console.log('Current MVP info before update:', mvpInfo);
+
+    const keys = section.split('.');
+    let current = mvpInfo;
+
+    keys.forEach((key, index) => {
+      if (index === keys.length - 1) {
+        if (Array.isArray(current[key])) {
+          current[key][field] = value;
+        } else {
+          current[key][field] = value;
+        }
+      } else {
+        if (!current[key]) {
+          current[key] = {};
+        }
+        current = current[key];
+      }
+    });
+
+    await fs.writeFile(mvpInfoFilePath, JSON.stringify(mvpInfo, null, 2));
+    console.log('Updated MVP info:', mvpInfo);
+    res.status(200).json({ message: 'Field updated successfully', info: mvpInfo });
+  } catch (err) {
+    console.error('Error updating field:', err);
+    res.status(500).json({ error: 'Failed to update field' });
+  }
+});
+
+// Endpoint to get the mvp-info
+app.get('/api/get-mvp-info', async (req, res) => {
+  try {
+    console.log("api/get-mvp-info has been called");
+    const data = await fs.readFile(mvpInfoFilePath, 'utf8');
+    const jsonData = JSON.parse(data);
+    console.log('Returning MVP info:', jsonData);
+    res.status(200).json(jsonData);
+  } catch (err) {
+    console.error('Error reading file:', err);
+    res.status(500).json({ error: 'Failed to read MVP info' });
   }
 });
 
 // Endpoint to get the mvp-example
 app.get('/api/get-mvp-example', async (req, res) => {
   try {
-    const data = await fs.readFile(mvpFilePath, 'utf8');
+    const data = await fs.readFile(mvpExampleFilePath, 'utf8');
     res.status(200).json(JSON.parse(data));
   } catch (err) {
     console.error('Error reading file:', err);
-    res.status(200).json({});
+    res.status(500).json({ error: 'Failed to read MVP example' });
   }
 });
 
@@ -144,7 +233,7 @@ async function callGpt4Api(prompt) {
 // Endpoint to get the GPT-4 API output
 app.post('/api/get-gpt4-output', async (req, res) => {
   try {
-    const mvpExample = await fs.readFile(mvpFilePath, 'utf8');
+    const mvpExample = await fs.readFile(mvpExampleFilePath, 'utf8');
     const parsedExample = JSON.parse(mvpExample);
     const initialPrompt = constructInitialPrompt(parsedExample);
 

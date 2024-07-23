@@ -16,9 +16,13 @@ code {
     monospace;
 }
 
+:root {
+  --bg-color: rgb(250, 247, 244);
+}
+
 /* Light theme styles */
 body.light {
-  --bg-color: #f8f9fa;
+  --bg-color: rgb(250, 247, 244);
   --text-color: #1a1a1a;
   --nav-bg-color: #343a40;
   --nav-text-color: white;
@@ -126,20 +130,6 @@ body {
 }
 
 /* Section styles */
-.section {
-  background: var(--section-bg-color);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.section h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: var(--link-hover-color);
-}
 
 .section-header {
   display: flex;

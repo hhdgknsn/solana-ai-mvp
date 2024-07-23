@@ -3,7 +3,6 @@ import React from 'react';
 const PermissionsForm = ({ permissions, handleNestedFieldChange, addNestedField }) => {
   return (
     <div className="section">
-      <h2>Permissions</h2>
       <div className="section-content">
         {permissions.roles.map((role, roleIndex) => (
           <div key={roleIndex}>

@@ -12,121 +12,121 @@ import ErrorHandlingForm from './ErrorHandlingForm.js';
 import TestEnvConfigForm from './TestEnvConfigForm.js';
 import '../styles/OverallForm.css';
 
-const OverallForm = () => {
-  const [formData, setFormData] = useState({
-    general: {
-      project_name: "",
-      mvp_description: "",
-      user_description: ""
-    },
-    account_design: {
-      user_accounts: [],
-      program_accounts: []
-    },
-    functions: [],
-    security: {
-      measures: []
-    },
-    permissions: {
-      roles: []
-    },
-    integration_points: {
-      external_apis: []
-    },
-    validation_rules: {
-      rules: []
-    },
-    test_cases: {
-      cases: []
-    },
-    error_handling: {
-      error_codes: []
-    },
-    test_env_config: {
-      dependencies: [],
-      setup_instructions: ""
+const OverallForm = ({ formData, handleFieldChange, handleSubmit, addField, addNestedField }) => {
+  const [activeForm, setActiveForm] = useState('General');
+
+  const handleKeyPress = (section, index, field, value) => (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(section, index, field, value);
     }
-  });
-
-  const handleFieldChange = (section, index, field, value) => {
-    setFormData(prevState => {
-      const sectionParts = section.split('.');
-      let updatedSection = { ...prevState };
-
-      if (sectionParts.length === 2) {
-        updatedSection[sectionParts[0]][sectionParts[1]][index] = {
-          ...updatedSection[sectionParts[0]][sectionParts[1]][index],
-          [field]: value
-        };
-      } else {
-        updatedSection[sectionParts[0]][index] = {
-          ...updatedSection[sectionParts[0]][index],
-          [field]: value
-        };
-      }
-
-      return updatedSection;
-    });
   };
 
-  const addField = (section, newField) => {
-    setFormData(prevState => {
-      const sectionParts = section.split('.');
-      let updatedSection = { ...prevState };
-
-      if (sectionParts.length === 2) {
-        updatedSection[sectionParts[0]][sectionParts[1]].push(newField);
-      } else {
-        updatedSection[sectionParts[0]].push(newField);
-      }
-
-      return updatedSection;
-    });
-  };
-
-  const addNestedField = (section, index, field, newField) => {
-    setFormData(prevState => {
-      const sectionParts = section.split('.');
-      let updatedSection = { ...prevState };
-
-      if (sectionParts.length === 2) {
-        updatedSection[sectionParts[0]][sectionParts[1]][index][field].push(newField);
-      } else {
-        updatedSection[sectionParts[0]][index][field].push(newField);
-      }
-
-      return updatedSection;
-    });
+  const forms = {
+    General: (
+      <GeneralForm
+        general={formData.general}
+        handleFieldChange={handleFieldChange}
+        handleSubmit={handleSubmit}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    UserAccount: (
+      <UserAccountForm
+        accounts={formData.account_design?.user_accounts || []}
+        handleFieldChange={handleFieldChange}
+        addField={addField}
+        addNestedField={addNestedField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    ProgramAccount: (
+      <ProgramAccountForm
+        programAccounts={formData.account_design?.program_accounts || []}
+        handleFieldChange={handleFieldChange}
+        addField={addField}
+        addNestedField={addNestedField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    Functions: (
+      <FunctionsForm
+        functions={formData.functions}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    Security: (
+      <SecurityForm
+        security={formData.security}
+        handleFieldChange={handleFieldChange}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    Permissions: (
+      <PermissionsForm
+        permissions={formData.permissions}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    IntegrationPoints: (
+      <IntegrationPointsForm
+        integration_points={formData.integration_points}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    ValidationRules: (
+      <ValidationRulesForm
+        validation_rules={formData.validation_rules}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    TestCases: (
+      <TestCasesForm
+        test_cases={formData.test_cases}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    ErrorHandling: (
+      <ErrorHandlingForm
+        error_handling={formData.error_handling}
+        handleNestedFieldChange={handleFieldChange}
+        addNestedField={addField}
+        handleKeyPress={handleKeyPress}
+      />
+    ),
+    TestEnvConfig: (
+      <TestEnvConfigForm
+        test_env_config={formData.test_env_config}
+        handleFieldChange={handleFieldChange}
+        handleKeyPress={handleKeyPress}
+      />
+    )
   };
 
   return (
-    <div className="overall-form">
-      <div>
-        <h2>General Information</h2>
-        <GeneralForm
-          general={formData.general}
-          handleFieldChange={(field, value) => handleFieldChange('general', field, value)}
-        />
+    <div className="overall-form-container">
+      <div className="sidebar">
+        <ul>
+          {Object.keys(forms).map(form => (
+            <li key={form} onClick={() => setActiveForm(form)}>
+              {form}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div>
-        <h2>User Accounts</h2>
-        <UserAccountForm
-          accounts={formData.account_design.user_accounts}
-          handleFieldChange={handleFieldChange}
-          addField={addField}
-          addNestedField={addNestedField}
-        />
+      <div className="form-content">
+        {forms[activeForm]}
       </div>
-      <div>
-        <h2>Program Accounts</h2>
-        <ProgramAccountForm
-          programAccounts={formData.account_design.program_accounts}
-          handleFieldChange={handleFieldChange}
-          addField={addField}
-          addNestedField={addNestedField}
-        />
-      </div>
-      {/* Add other form sections here similarly */}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import React from 'react';
 const TestCasesForm = ({ test_cases, handleNestedFieldChange, addNestedField }) => {
   return (
     <div className="section">
-      <h2>Test Cases</h2>
       <div className="section-content">
         {test_cases.cases.map((testCase, testCaseIndex) => (
           <div key={testCaseIndex}>

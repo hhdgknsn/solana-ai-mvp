@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .app-container {
@@ -44,22 +45,8 @@ body {
   
   .content {
     flex: 1;
-    padding: 20px;
-    background-color: #f8f9fa;
   }
-  
-  h1, h2 {
-    color: #343a40;
-  }
-  
-  button {
-    font-size: 16px;
-  }
-  
-  textarea, input[type="text"] {
-    font-size: 16px;
-  }
-  
+
   pre {
     font-family: 'Courier New', Courier, monospace;
   }

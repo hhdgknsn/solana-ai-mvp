@@ -3,7 +3,6 @@ import React from 'react';
 const ValidationRulesForm = ({ validation_rules, handleNestedFieldChange, addNestedField }) => {
   return (
     <div className="section">
-      <h2>Validation Rules</h2>
       <div className="section-content">
         {validation_rules.rules.map((rule, ruleIndex) => (
           <div key={ruleIndex}>

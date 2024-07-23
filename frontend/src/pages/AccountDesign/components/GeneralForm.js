@@ -1,26 +1,47 @@
 import React from 'react';
 
-const GeneralForm = ({ general, handleFieldChange }) => {
+const GeneralForm = ({ general, handleFieldChange, handleSubmit, handleKeyPress }) => {
+  const handleChange = (field) => (e) => {
+    handleFieldChange('general', null, field, e.target.value);
+  };
+
   return (
-    <div className="section">
-      <h2>General</h2>
-      <div className="section-content">
+    <div>
+      <div>
+        <label>Project Name:</label>
         <input
           type="text"
           value={general.project_name}
-          onChange={(e) => handleFieldChange('general', 'project_name', e.target.value)}
-          placeholder="Project Name"
+          onChange={handleChange('project_name')}
+          onKeyPress={handleKeyPress('general', null, 'project_name', general.project_name)}
         />
-        <textarea
+        <button onClick={() => handleSubmit('general', null, 'project_name', general.project_name)} style={{border: 'none', background: 'none'}}>
+          ➔
+        </button>
+      </div>
+      <div>
+        <label>MVP Description:</label>
+        <input
+          type="text"
           value={general.mvp_description}
-          onChange={(e) => handleFieldChange('general', 'mvp_description', e.target.value)}
-          placeholder="MVP Description"
+          onChange={handleChange('mvp_description')}
+          onKeyPress={handleKeyPress('general', null, 'mvp_description', general.mvp_description)}
         />
-        <textarea
+        <button onClick={() => handleSubmit('general', null, 'mvp_description', general.mvp_description)} style={{border: 'none', background: 'none'}}>
+          ➔
+        </button>
+      </div>
+      <div>
+        <label>User Description:</label>
+        <input
+          type="text"
           value={general.user_description}
-          onChange={(e) => handleFieldChange('general', 'user_description', e.target.value)}
-          placeholder="User Description"
+          onChange={handleChange('user_description')}
+          onKeyPress={handleKeyPress('general', null, 'user_description', general.user_description)}
         />
+        <button onClick={() => handleSubmit('general', null, 'user_description', general.user_description)} style={{border: 'none', background: 'none'}}>
+          ➔
+        </button>
       </div>
     </div>
   );

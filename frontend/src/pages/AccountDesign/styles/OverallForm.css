@@ -1,26 +1,83 @@
-/* styles/OverallForm.css */
-
-/* Base form styles */
-.overall-form {
-  width: 100%;
-  margin: 20px auto;
-  padding: 10px;
-  box-sizing: border-box;
-  background-color: var(--section-bg-color);
-  color: var(--section-text-color);
-  border: solid 1px var(--button-border-color);
-  border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, color 0.3s;
-  font-size: 0.9rem;
+:root {
+  --section-bg-color: #f7f7f7;
+  --section-text-color: #333;
+  --sidebar-bg-color: #fff;
+  --sidebar-text-color: #333;
+  --sidebar-hover-bg-color: #fbfbfb;
+  --button-bg-color: #007bff;
+  --button-text-color: #fff;
+  --button-hover-bg-color: #0056b3;
+  --button-hover-text-color: #fff;
 }
 
-/* Section styles */
+.overall-form-container {
+  display: flex;
+  flex-direction: row;
+  font-family: Arial, sans-serif;
+
+}
+
+.overall-form-container > * {
+  margin: 0 15px;
+}
+
+
+.sidebar {
+  flex: 1 1 20%;
+  background-color: var(--sidebar-bg-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 0.8rem;
+
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  color: var(--sidebar-text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.sidebar li:hover {
+  font-weight: bold;
+}
+
+.form-content {
+  flex: 1 1 80%;
+  padding: 20px;
+  background-color: var(--section-bg-color);
+  color: var(--section-text-color);
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.overall-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .section {
-  background-color: var(--bg-color);
+  width: 90%;
+  background-color: var(--section-bg-color);
   padding: 15px;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   box-sizing: border-box;
 }
 
@@ -28,48 +85,78 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  flex: 1 auto;
 }
 
-.section-content > input,
-.section-content textarea {
-  width: 80%;
+.section-content h2 {
+  font-size: 0.8rem;
+  flex: 1;
+  width: 100%;
+  text-align: left;
 }
 
-.section h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: var(--text-color);
+.input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1 1 80%;
+  width: 100%;
 }
 
-
-
-/* Form input styles */
-input,
-select,
-textarea,
-button {
-  display: block;
-  width: calc(100% - 20px);
+.input-section > * {
+  font-size: 0.7rem;
   margin: 10px 0;
+  width: 90%;
+  box-sizing: border-box;
   padding: 8px;
-  border: 1px solid var(--button-border-color);
-  border-radius: 4px;
-  font-size: 0.9rem;
 }
 
-/* Button styles */
-button {
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
-  border: 1px solid var(--button-border-color);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  padding: 8px 12px;
-  text-align: center;
+.input-section > textarea {
+  height: 6rem;
+  resize: none;
+  overflow-y: auto;
+}
+
+.section-content > textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section-content > textarea::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg-color);
+  border-radius: 10px;
+}
+
+.section-content > textarea::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: 10px;
+  border: 2px solid var(--scrollbar-bg-color);
+}
+
+.section-content > textarea::-webkit-scrollbar-thumb:hover {
+  background-color: darken(var(--scrollbar-thumb-color), 10%);
+}
+
+
+.account-form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.account-form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.account-form > *:not(h3) {
+  flex: 1;
+  box-sizing: border-box;
+  margin: 1% 5%;
 }
 
 button:hover {
@@ -77,7 +164,6 @@ button:hover {
   color: var(--button-hover-text-color);
 }
 
-/* Additional styling */
 .add-button {
   background-color: var(--button-bg-color);
   color: var(--button-text-color);
@@ -89,6 +175,29 @@ button:hover {
 }
 
 .add-button:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-hover-text-color);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submit-button:hover {
   background-color: var(--button-hover-bg-color);
   color: var(--button-hover-text-color);
 }
