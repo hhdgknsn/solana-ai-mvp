@@ -1,4 +1,3 @@
-```markdown
 # AI-Powered Solana MVP Generator
 
 ## Overview
