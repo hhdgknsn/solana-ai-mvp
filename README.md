@@ -122,10 +122,10 @@ docker-compose up
 
 ```json
 {
-  "general": { ... },
-  "account_design": { ... },
-  "functions": [ ... ],
-  ...
+  "general": {},
+  "account_design": {},
+  "functions": [],
+  
 }
 ```
 
@@ -134,7 +134,7 @@ docker-compose up
 ```json
 {
   "message": "MVP info saved successfully",
-  "info": { ... }
+  "info": {}
 }
 ```
 
@@ -158,7 +158,7 @@ docker-compose up
 ```json
 {
   "message": "Field updated successfully",
-  "info": { ... }
+  "info": {}
 }
 ```
 
@@ -170,7 +170,7 @@ docker-compose up
 - **Response**:
 
 ```json
-{ ... }
+{}
 ```
 
 ### Get MVP Example
@@ -181,7 +181,7 @@ docker-compose up
 - **Response**:
 
 ```json
-{ ... }
+{}
 ```
 
 ### Get Prompt Text
@@ -267,7 +267,7 @@ Ensure required directories and files exist:
 ```javascript
 async function initialize() {
   await ensureDirectoryExists(path.dirname(mvpInfoFilePath));
-  const initialData = { ... };
+  const initialData = {};
   await ensureFileExistsWithContent(mvpInfoFilePath, initialData);
   await ensureFileExists(gpt4OutputPath);
 }
