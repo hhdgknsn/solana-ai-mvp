@@ -62,8 +62,7 @@ docker-compose.yml
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/mytoken.git
-cd mytoken
+git clone https://github.com/hhdgknsn/solana-ai-mvp/tree/version-2
 ```
 
 2. Install backend dependencies:
