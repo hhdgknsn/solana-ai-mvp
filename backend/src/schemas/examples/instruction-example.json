@@ -1,0 +1,136 @@
+{
+    "type": "object",
+    "properties": {
+      "instructions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the instruction"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the instruction"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paramName": {
+                    "type": "string",
+                    "description": "Name of the parameter"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Data type of the parameter"
+                  },
+                  "defaultValue": {
+                    "type": "string",
+                    "description": "Default value of the parameter"
+                  },
+                  "validationRules": {
+                    "type": "object",
+                    "properties": {
+                      "required": { "type": "boolean" },
+                      "minLength": { "type": "integer" },
+                      "maxLength": { "type": "integer" },
+                      "minValue": { "type": "integer" },
+                      "maxValue": { "type": "integer" }
+                    }
+                  }
+                },
+                "required": ["paramName", "type"]
+              }
+            },
+            "expectedOutput": {
+              "type": "string",
+              "description": "Expected output of the instruction"
+            },
+            "errorHandling": {
+              "type": "object",
+              "properties": {
+                "errorCode": { "type": "string" },
+                "errorMessage": { "type": "string" }
+              }
+            },
+            "security": {
+              "type": "object",
+              "properties": {
+                "requiresAuthorization": { "type": "boolean" },
+                "authorizedRoles": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "integrationPoints": {
+              "type": "object",
+              "properties": {
+                "externalAPIs": { "type": "array", "items": { "type": "string" } },
+                "linkedContracts": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "executionSettings": {
+              "type": "object",
+              "properties": {
+                "gasLimit": { "type": "string" },
+                "timeout": { "type": "string" },
+                "retryOnFailure": { "type": "boolean" }
+              }
+            }
+          },
+          "required": ["name", "parameters"]
+        }
+      }
+    },
+    "required": ["instructions"],
+    "example": {
+      "instructions": [
+        {
+          "name": "Create Vault",
+          "description": "Initializes a new vault with a set deadline and fee structure.",
+          "parameters": [
+            {
+              "paramName": "deadline",
+              "type": "string",
+              "defaultValue": "2024-09-01T00:00:00Z",
+              "validationRules": {
+                "required": true,
+                "minLength": 20,
+                "maxLength": 30
+              }
+            },
+            {
+              "paramName": "fee",
+              "type": "number",
+              "defaultValue": 500,
+              "validationRules": {
+                "required": true,
+                "minValue": 0,
+                "maxValue": 10000
+              }
+            }
+          ],
+          "expectedOutput": "Vault is created with the specified parameters.",
+          "errorHandling": {
+            "errorCode": "VAULT_CREATION_FAILED",
+            "errorMessage": "Failed to create the vault due to insufficient permissions or invalid parameters."
+          },
+          "security": {
+            "requiresAuthorization": true,
+            "authorizedRoles": ["Admin"]
+          },
+          "integrationPoints": {
+            "externalAPIs": ["https://api.coingecko.com/api/v3/simple/price"],
+            "linkedContracts": ["3KfArA9a1SxE1fDgZ8Q1H1H2q4P1T1M1B2"]
+          },
+          "executionSettings": {
+            "gasLimit": "50000",
+            "timeout": "10s",
+            "retryOnFailure": true
+          }
+        }
+      ]
+    }
+  }
+  

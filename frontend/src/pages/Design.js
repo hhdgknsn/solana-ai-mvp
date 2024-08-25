@@ -1,44 +1,108 @@
 import React, { useEffect, useState } from 'react';
-import OverallForm from './components/OverallForm.js';
+import OverallForm from '../components/Design/OverallForm.js';
+import Accounts from '../components/Design/Accounts.js'; // Updated import
 import axios from 'axios';
-import './styles/AccountDesign.css';
+import '../styles/Design.css';
 
-const AccountDesign = () => {
+const Design = () => {
   const [formData, setFormData] = useState({
     general: {
-      project_name: "",
-      mvp_description: "",
-      user_description: ""
+      projectName: "",
+      mvpDescription: "",
+      userDescription: ""
     },
-    account_design: {
-      user_accounts: [
+    roles: [
+      {
+        roleName: "",
+        permissions: [],
+        description: ""
+      }
+    ],
+    accounts: { 
+      accountsData: [
         {
-          "account_type": "",
-          "public_key": "",
-          "private_key": "",
-          "owner": "",
-          "balance": "",
-          "permissions": ""
-        }
-      ],
-      program_acconts: [
-        {
-          "account_type": "",
-          "public_key": "",
-          "owner": "",
-          "name": "",
-          "permissions": "",
-          "settings": ""
-        }
-      ],
-      functions: [
-        {
-          "name": "", 
-          "description": "",
-          "parameters": {},
-          "expected_output": ""
+          accountType: "",
+          publicKey: "",
+          privateKey: "",
+          owner: "",
+          balance: 0,
+          permissions: [],
+          metadata: {
+            createdAt: "",
+            updatedAt: ""
+          },
+          security: {
+            encryption: "",
+            multiSig: false,
+            authorizedUsers: []
+          }
         }
       ]
+    },
+    instructions: [
+      {
+        name: "",
+        description: "",
+        parameters: [
+          {
+            paramName: "",
+            type: "",
+            defaultValue: "",
+            validationRules: {
+              required: false,
+              minLength: 0,
+              maxLength: 0,
+              minValue: 0,
+              maxValue: 0
+            }
+          }
+        ],
+        expectedOutput: "",
+        errorHandling: {
+          errorCode: "",
+          errorMessage: ""
+        },
+        security: {
+          requiresAuthorization: false,
+          authorizedRoles: []
+        },
+        integrationPoints: {
+          externalAPIs: [],
+          linkedContracts: [],
+        },
+        executionSettings: {
+          gasLimit: "",
+          timeout: "",
+          retryOnFailure: false
+        }
+      }
+    ],
+    errorHandling: {
+      globalErrorCodes: [],
+      fallbackInstructions: [],
+      loggingSettings: {
+        enableLogging: false,
+        logLevel: "error",
+        logDestination: ""
+      }
+    },
+    securityRequirements: {
+      encryptionStandards: "",
+      multiFactorAuthentication: false,
+      authorizedNetworks: [],
+      dataRetentionPolicy: {
+        retentionPeriod: "",
+        backupFrequency: "",
+      },
+      accessControl: {
+        rolesWithAccess: [],
+        ipWhitelist: []
+      }
+    },
+    integrationPoints: {
+      externalServices: [],
+      oracleServices: [],
+      thirdPartyAPIs: []
     }
   });
 
@@ -50,7 +114,8 @@ const AccountDesign = () => {
   const fetchMvpInfo = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/api/get-mvp-info');
+      // Make an API call to the new endpoint
+      const response = await axios.get('http://localhost:8000/api/get-json/mvp-design/mvp-example2');
       setFormData(response.data);
       setSavedDesign(response.data);
     } catch (error) {
@@ -60,9 +125,8 @@ const AccountDesign = () => {
     }
   };
 
-  const handleFieldChange = (section, property=null, index, field, value) => {
+  const handleFieldChange = (section, property = null, index, field, value) => {
     setFormData(prevState => {
-      // Handle case where section itself is an array
       if (Array.isArray(prevState[section])) {
         const updatedArray = [...prevState[section]];
         if (index !== undefined && index !== null) {
@@ -73,8 +137,7 @@ const AccountDesign = () => {
         }
         return { ...prevState, [section]: updatedArray };
       }
-  
-      // Handle case where section is an object containing an array property
+
       const updatedSection = { ...prevState[section] };
       if (Array.isArray(updatedSection[property])) {
         const updatedArray = [...updatedSection[property]];
@@ -88,12 +151,10 @@ const AccountDesign = () => {
       } else {
         updatedSection[field] = value;
       }
-  
+
       return { ...prevState, [section]: updatedSection };
     });
   };
-  
-  
 
   const handleKeyPress = (section, index, field, value) => (e) => {
     if (e.key === 'Enter') {
@@ -162,11 +223,8 @@ const AccountDesign = () => {
   }, []);
 
   return (
-    <div className="account-design-container">
-      <div className='account-design-container-header'>
-        <h2>MVP Specifications</h2>
-        <p>This page is for defining the MVP specifications, including the account design and use cases.</p>
-      </div>
+    <div className="design-page">
+      <h1>Design Your Application</h1>
       <div className="account-design-container-inner">
         {loading && <p>Loading...</p>}
         {fetchError && <p style={{ color: 'red' }}>{fetchError}</p>}
@@ -179,6 +237,13 @@ const AccountDesign = () => {
             addNestedField={addNestedField}
             handleKeyPress={handleKeyPress}
           />
+          <Accounts
+            accountsData={formData.accounts?.accountsData || []}
+            handleFieldChange={handleFieldChange}
+            addField={addField}
+            addNestedField={addNestedField}
+            handleKeyPress={handleKeyPress}
+          />
           <button type="submit">Save</button>
         </form>
         {defaultMessage && <p>{defaultMessage}</p>}
@@ -187,8 +252,9 @@ const AccountDesign = () => {
           <pre>{JSON.stringify(savedDesign, null, 2)}</pre>
         </div>
       </div>
+      {/* Future: Add drag-and-drop interface here */}
     </div>
   );
 };
 
-export default AccountDesign;
+export default Design;

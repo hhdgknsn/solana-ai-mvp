@@ -1,0 +1,159 @@
+{
+    "general": {
+      "projectName": "Solana Vault MVP",
+      "mvpDescription": "A Solana-based vault system where users can deposit tokens and perform secure swaps.",
+      "userDescription": "This MVP is targeted towards users looking for a secure way to exchange tokens on the Solana blockchain."
+    },
+    "roles": [
+      {
+        "roleName": "Admin",
+        "permissions": ["create_vault", "modify_vault", "view_all_vaults"],
+        "description": "Admins can create and manage vaults, and have full access to all functionalities."
+      },
+      {
+        "roleName": "User",
+        "permissions": ["deposit_tokens", "withdraw_tokens", "view_own_vaults"],
+        "description": "Users can deposit and withdraw tokens from their vaults, and view their own vaults."
+      }
+    ],
+    "accountDesign": {
+      "userAccounts": [
+        {
+          "accountType": "Wallet",
+          "publicKey": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+          "privateKey": "5Kd3NBUAdUnf7vcf65rZy3Q3pD4gfRGKVPkXM8Gq5P3epjG9Smb",
+          "owner": "User1",
+          "balance": 100000,
+          "permissions": ["send", "receive"],
+          "metadata": {
+            "createdAt": "2024-08-17T12:34:56Z",
+            "updatedAt": "2024-08-17T13:00:00Z"
+          },
+          "security": {
+            "encryption": "AES256",
+            "multiSig": true,
+            "authorizedUsers": ["User1", "User2"]
+          }
+        },
+        {
+          "accountType": "Escrow",
+          "publicKey": "7dWdTmdKTzmxAY9NnUB9dgd3R48DHzVcABfDrYJmTmJu",
+          "privateKey": "5Kd3NBUAdUnf7vcf65rZy3Q3pD4gfRGKVPkXM8Gq5P3epjG9Smb",
+          "owner": "User2",
+          "balance": 50000,
+          "permissions": ["hold", "release"],
+          "metadata": {
+            "createdAt": "2024-08-17T12:40:00Z",
+            "updatedAt": "2024-08-17T13:10:00Z"
+          },
+          "security": {
+            "encryption": "RSA2048",
+            "multiSig": false,
+            "authorizedUsers": ["User2"]
+          }
+        }
+      ],
+      "programAccounts": [
+        {
+          "accountType": "Vault",
+          "publicKey": "4r5THFQ7jH9rVe99Ab8zK7E5AXTDRTEAe1VuHdNdrZeB",
+          "owner": "Admin1",
+          "name": "Vault1",
+          "permissions": ["deposit", "withdraw", "swap"],
+          "settings": {
+            "executionEnvironment": "Devnet",
+            "initializationParams": {
+              "fee": 500,
+              "deadline": "2024-09-01T00:00:00Z"
+            },
+            "securitySettings": {
+              "accessControl": ["Admin1", "Admin2"],
+              "auditLogging": true
+            }
+          },
+          "metadata": {
+            "createdAt": "2024-08-17T12:45:00Z",
+            "updatedAt": "2024-08-17T13:15:00Z"
+          }
+        }
+      ]
+    },
+    "instructions": [
+      {
+        "name": "Create Vault",
+        "description": "Initializes a new vault with a set deadline and fee structure.",
+        "parameters": [
+          {
+            "paramName": "deadline",
+            "type": "string",
+            "defaultValue": "2024-09-01T00:00:00Z",
+            "validationRules": {
+              "required": true,
+              "minLength": 20,
+              "maxLength": 30,
+              "minValue": null,
+              "maxValue": null
+            }
+          },
+          {
+            "paramName": "fee",
+            "type": "number",
+            "defaultValue": 500,
+            "validationRules": {
+              "required": true,
+              "minLength": null,
+              "maxLength": null,
+              "minValue": 0,
+              "maxValue": 10000
+            }
+          }
+        ],
+        "expectedOutput": "Vault is created with the specified parameters.",
+        "errorHandling": {
+          "errorCode": "VAULT_CREATION_FAILED",
+          "errorMessage": "Failed to create the vault due to insufficient permissions or invalid parameters."
+        },
+        "security": {
+          "requiresAuthorization": true,
+          "authorizedRoles": ["Admin"]
+        },
+        "integrationPoints": {
+          "externalAPIs": ["https://api.coingecko.com/api/v3/simple/price"],
+          "linkedContracts": ["3KfArA9a1SxE1fDgZ8Q1H1H2q4P1T1M1B2"]
+        },
+        "executionSettings": {
+          "gasLimit": "50000",
+          "timeout": "10s",
+          "retryOnFailure": true
+        }
+      }
+    ],
+    "errorHandling": {
+      "globalErrorCodes": ["VAULT_CREATION_FAILED", "TOKEN_SWAP_FAILED"],
+      "fallbackInstructions": ["Notify Admin", "Revert Transaction"],
+      "loggingSettings": {
+        "enableLogging": true,
+        "logLevel": "error",
+        "logDestination": "console"
+      }
+    },
+    "securityRequirements": {
+      "encryptionStandards": "AES256",
+      "multiFactorAuthentication": true,
+      "authorizedNetworks": ["192.168.1.0/24", "10.0.0.0/8"],
+      "dataRetentionPolicy": {
+        "retentionPeriod": "1 year",
+        "backupFrequency": "daily"
+      },
+      "accessControl": {
+        "rolesWithAccess": ["Admin", "User"],
+        "ipWhitelist": ["192.168.1.100", "10.0.0.50"]
+      }
+    },
+    "integrationPoints": {
+      "externalServices": ["CoinGecko", "Chainlink"],
+      "oracleServices": ["Pyth", "Chainlink"],
+      "thirdPartyAPIs": ["https://api.solana.com"]
+    }
+  }
+  

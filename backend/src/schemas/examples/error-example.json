@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+      "globalErrorCodes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "fallbackInstructions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "loggingSettings": {
+        "type": "object",
+        "properties": {
+          "enableLogging": { "type": "boolean" },
+          "logLevel": { "type": "string" },
+          "logDestination": { "type": "string" }
+        }
+      }
+    },
+    "required": ["globalErrorCodes", "loggingSettings"],
+    "example": {
+      "globalErrorCodes": ["VAULT_CREATION_FAILED", "TOKEN_SWAP_FAILED"],
+      "fallbackInstructions": ["Notify Admin", "Revert Transaction"],
+      "loggingSettings": {
+        "enableLogging": true,
+        "logLevel": "error",
+        "logDestination": "console"
+      }
+    }
+  }
+  

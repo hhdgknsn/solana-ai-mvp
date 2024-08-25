@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GeneralForm = ({ general, handleFieldChange, handleSubmit, handleKeyPress }) => {
+const General = ({ general, handleFieldChange, handleSubmit, handleKeyPress }) => {
 
   const handleChange = (field) => (e) => {
     handleFieldChange('general', null, null, field, e.target.value);
@@ -46,4 +46,4 @@ const GeneralForm = ({ general, handleFieldChange, handleSubmit, handleKeyPress 
   );
 };
 
-export default GeneralForm;
+export default General;

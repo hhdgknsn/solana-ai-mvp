@@ -1,0 +1,15 @@
+{
+    "src": {
+      "lib.rs": "",
+      "state.rs": "",
+      "instruction.rs": "",
+      "error.rs": "",
+      "processor.rs": "",
+      "program.rs": "",
+      "utils.rs": ""
+    },
+    "tests": {
+      "integration.rs": ""
+    }
+  }
+  

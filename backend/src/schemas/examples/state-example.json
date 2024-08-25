@@ -1,0 +1,76 @@
+{
+    "type": "object",
+    "properties": {
+      "accounts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the account"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "fieldName": {
+                    "type": "string",
+                    "description": "Name of the field"
+                  },
+                  "fieldType": {
+                    "type": "string",
+                    "description": "Data type of the field"
+                  }
+                },
+                "required": ["fieldName", "fieldType"]
+              }
+            }
+          },
+          "required": ["name", "fields"]
+        }
+      }
+    },
+    "required": ["accounts"],
+    "example": {
+      "accounts": [
+        {
+          "name": "Wallet",
+          "fields": [
+            { "fieldName": "publicKey", "fieldType": "String" },
+            { "fieldName": "privateKey", "fieldType": "String" },
+            { "fieldName": "owner", "fieldType": "String" },
+            { "fieldName": "balance", "fieldType": "u64" },
+            { "fieldName": "permissions", "fieldType": "Vec<String>" },
+            { "fieldName": "metadata", "fieldType": "Metadata" },
+            { "fieldName": "security", "fieldType": "Security" }
+          ]
+        },
+        {
+          "name": "Escrow",
+          "fields": [
+            { "fieldName": "publicKey", "fieldType": "String" },
+            { "fieldName": "privateKey", "fieldType": "String" },
+            { "fieldName": "owner", "fieldType": "String" },
+            { "fieldName": "balance", "fieldType": "u64" },
+            { "fieldName": "permissions", "fieldType": "Vec<String>" },
+            { "fieldName": "metadata", "fieldType": "Metadata" },
+            { "fieldName": "security", "fieldType": "Security" }
+          ]
+        },
+        {
+          "name": "Vault",
+          "fields": [
+            { "fieldName": "publicKey", "fieldType": "String" },
+            { "fieldName": "owner", "fieldType": "String" },
+            { "fieldName": "name", "fieldType": "String" },
+            { "fieldName": "permissions", "fieldType": "Vec<String>" },
+            { "fieldName": "settings", "fieldType": "Settings" },
+            { "fieldName": "metadata", "fieldType": "Metadata" }
+          ]
+        }
+      ]
+    }
+  }
+  

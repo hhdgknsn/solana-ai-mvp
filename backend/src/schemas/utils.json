@@ -1,0 +1,50 @@
+{
+    "type": "object",
+    "properties": {
+      "helperFunctions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "functionName": {
+              "type": "string",
+              "description": "Name of the helper function"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of what the function does"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paramName": {
+                    "type": "string"
+                  },
+                  "paramType": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": ["functionName", "parameters"]
+        }
+      }
+    },
+    "required": ["helperFunctions"],
+    "example": {
+      "helperFunctions": [
+        {
+          "functionName": "calculate_fee",
+          "description": "Calculates the fee based on the provided parameters.",
+          "parameters": [
+            { "paramName": "amount", "paramType": "u64" },
+            { "paramName": "fee_percentage", "paramType": "f64" }
+          ]
+        }
+      ]
+    }
+  }
+  

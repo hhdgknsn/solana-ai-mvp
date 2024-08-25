@@ -1,0 +1,121 @@
+{
+  "general": {
+    "projectName": "",
+    "mvpDescription": "",
+    "userDescription": ""
+  },
+  "roles": [
+    {
+      "roleName": "",
+      "permissions": [],
+      "description": ""
+    }
+  ],
+  "accountDesign": {
+    "userAccounts": [
+      {
+        "accountType": "",
+        "publicKey": "",
+        "privateKey": "",
+        "owner": "",
+        "balance": 0,
+        "permissions": [],
+        "metadata": {
+          "createdAt": "",
+          "updatedAt": ""
+        },
+        "security": {
+          "encryption": "",
+          "multiSig": false,
+          "authorizedUsers": []
+        }
+      }
+    ],
+    "programAccounts": [
+      {
+        "accountType": "",
+        "publicKey": "",
+        "owner": "",
+        "name": "",
+        "permissions": [],
+        "settings": {
+          "executionEnvironment": "",
+          "initializationParams": {},
+          "securitySettings": {
+            "accessControl": [],
+            "auditLogging": false
+          }
+        },
+        "metadata": {
+          "createdAt": "",
+          "updatedAt": ""
+        }
+      }
+    ]
+  },
+  "instructions": [
+    {
+      "name": "",
+      "description": "",
+      "parameters": [
+        {
+          "paramName": "",
+          "type": "",
+          "defaultValue": "",
+          "validationRules": {
+            "required": false,
+            "minLength": 0,
+            "maxLength": 0,
+            "minValue": 0,
+            "maxValue": 0
+          }
+        }
+      ],
+      "expectedOutput": "",
+      "errorHandling": {
+        "errorCode": "",
+        "errorMessage": ""
+      },
+      "security": {
+        "requiresAuthorization": false,
+        "authorizedRoles": []
+      },
+      "integrationPoints": {
+        "externalAPIs": [],
+        "linkedContracts": []
+      },
+      "executionSettings": {
+        "gasLimit": "",
+        "timeout": "",
+        "retryOnFailure": false
+      }
+    }
+  ],
+  "errorHandling": {
+    "globalErrorCodes": [],
+    "fallbackInstructions": [],
+    "loggingSettings": {
+      "enableLogging": false,
+      "logLevel": "error",
+      "logDestination": ""
+    }
+  },
+  "securityRequirements": {
+    "encryptionStandards": "",
+    "multiFactorAuthentication": false,
+    "authorizedNetworks": [],
+    "dataRetentionPolicy": {
+      "retentionPeriod": "",
+      "backupFrequency": ""
+    },
+    "accessControl": {
+      "rolesWithAccess": [],
+      "ipWhitelist": []
+    }
+  },
+  "integrationPoints": {
+    "externalServices": [],
+    "oracleServices": [],
+    "thirdPartyAPIs": []
+  }
+}

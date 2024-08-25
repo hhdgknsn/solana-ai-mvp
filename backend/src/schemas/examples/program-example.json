@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Name of the program"
+      },
+      "version": {
+        "type": "string",
+        "description": "Version of the program"
+      },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "entrypoint": {
+        "type": "string",
+        "description": "Entry point of the program"
+      }
+    },
+    "required": ["name", "version", "entrypoint"],
+    "example": {
+      "name": "Solana Vault Program",
+      "version": "0.1.0",
+      "dependencies": ["solana_program", "anchor_lang"],
+      "entrypoint": "main"
+    }
+  }
+  

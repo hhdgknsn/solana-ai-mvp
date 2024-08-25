@@ -1,9 +1,6 @@
-```markdown
+---
+
 # AI-Powered Solana MVP Generator
-
-## Overview
-
-AI-Powered Solana MVP Generator is a decentralized application for managing user tokens on the Solana blockchain. This repository contains both the backend and frontend code, which provide API endpoints to interact with the MVP (Minimum Viable Product) data and integrate with the OpenAI GPT-4 API for generating Solana Anchor programs.
 
 ## Table of Contents
 
@@ -21,32 +18,82 @@ AI-Powered Solana MVP Generator is a decentralized application for managing user
 ```
 backend/
 ├── src/
-│   ├── index.js
-│   ├── mvp-example.json
-│   └── mvp-info.json
+│   ├── ai/
+│   │   ├── prompt-text.json
+│   │   └── gpt4-output.json
+│   ├── mvp-design/
+│   │   ├── mvp-example.json
+│   │   ├── mvp-example2.json
+│   │   └── mvp-info.json
+│   ├── project/
+│   │   ├── src/
+│   └── files.json
+│
+│   ├── schemas/
+│   │   ├── instruction.json
+│   │   ├── project-template.json
+│   │   ├── state.json
+│   │   ├── utils.json
+│   │   └── examples/
+│   │       ├── error-example.json
+│   │       ├── instruction-example.json
+│   │       ├── processor-example.json
+│   │       ├── program-example.json
+│   │       ├── state-example.json
+│   │       └── utils-example.json
+├── index.js
+├── .env
 ├── Dockerfile
 └── package.json
+│
+│
 frontend/
 ├── public/
 │   └── index.html
-└── src/
-    ├── pages/
-    │   ├── accountdesign/
-    │   │   ├── components/
-    │   │   │   ├── FunctionsForm.js
-    │   │   │   ├── GeneralForm.js
-    │   │   │   ├── OverallForm.js
-    │   │   │   ├── ProgramAccountsForm.js
-    │   │   │   └── UserAccountsForm.js
-    │   ├── AccountDesign.js
-    │   ├── DevnetPlayground.js
-    │   └── styles/
-    │       ├── AccountDesign.css
-    │       ├── OverallForm.css
-    │       └── index.css
+├── src/
+│   ├── components/
+│   │   ├── Design/
+│   │   │   ├── Accounts.js
+│   │   │   ├── ErrorHandling.js
+│   │   │   ├── General.js
+│   │   │   ├── Instructions.js
+│   │   │   ├── Integrations.js
+│   │   │   ├── OverallForm.js
+│   │   │   ├── Roles.js
+│   │   │   └── Security.js
+│   │   ├── Edit/
+│   │   │   ├── CodeEditor.js
+│   │   │   ├── FileExplorer.js
+│   │   │   └── Terminal.js
+│   │   ├── Test/
+│   │   │   ├── Deployment.js
+│   │   │   ├── Logs.js
+│   │   │   └── TestRunner.js
+│   │   ├── Sidebar.js
+│   │   ├── SideSection.js
+│   │   └── Wallet.js
+│   ├── pages/
+│   │   ├── Deploy.js
+│   │   ├── Design.js
+│   │   ├── Edit.js
+│   │   └── Test.js
+│   ├── styles/
+│   │   ├── App.css
+│   │   ├── Deploy.css
+│   │   ├── Design.css
+│   │   ├── Edit.css
+│   │   ├── Header.css
+│   │   ├── Index.css
+│   │   ├── Sidebar.css
+│   │   └── Test.css
+│   ├── App.js
+│   ├── index.js
+│   └── Routes.js
 ├── Dockerfile
 └── package.json
+.gitignore
 docker-compose.yml
+README.md
 ```
 
 ## Setup Instructions
@@ -55,7 +102,7 @@ docker-compose.yml
 
 - Node.js (version 14 or higher)
 - Docker (optional, for containerized deployment)
-- .env file with the following environment variables:
+- A `.env` file with the following environment variable:
   - `OPENAI_API_KEY`: Your OpenAI API key
 
 ### Local Setup
@@ -83,7 +130,7 @@ OPENAI_API_KEY=your_openai_api_key
 4. Start the backend server:
 
 ```bash
-node src/index.js
+npm start
 ```
 
 5. Install frontend dependencies:
@@ -115,235 +162,100 @@ docker-compose up
 
 ## API Endpoints
 
-### Save MVP Info
+### Generate Code
 
-- **Endpoint**: `/api/save`
+- **Endpoint**: `/api/gen-code`
 - **Method**: `POST`
-- **Description**: Save the MVP info.
-- **Request Body**:
-
-```json
-{
-  "general": { ... },
-  "account_design": { ... },
-  "functions": [ ... ],
-  ...
-}
-```
-
+- **Description**: Triggers code generation for the Solana MVP using the OpenAI GPT-4 API.
 - **Response**:
 
 ```json
 {
-  "message": "MVP info saved successfully",
-  "info": { ... }
+  "message": "Code generated successfully",
+  "files": [ "state.rs", "instructions.rs", "errors.rs", "processor.rs", "lib.rs", "utils.rs" ]
 }
 ```
 
-### Update Specific Field
+### Retrieve Project Files
 
-- **Endpoint**: `/api/update-field`
-- **Method**: `POST`
-- **Description**: Update a specific field in the MVP info.
-- **Request Body**:
-
-```json
-{
-  "section": "general",
-  "field": "project_name",
-  "value": "New Project Name"
-}
-```
-
-- **Response**:
-
-```json
-{
-  "message": "Field updated successfully",
-  "info": { ... }
-}
-```
-
-### Get MVP Info
-
-- **Endpoint**: `/api/get-mvp-info`
+- **Endpoint**: `/api/project/files`
 - **Method**: `GET`
-- **Description**: Retrieve the MVP info.
+- **Description**: List all files generated for the project.
 - **Response**:
 
 ```json
-{ ... }
+[ "state.rs", "instructions.rs", "errors.rs", "processor.rs", "lib.rs", "utils.rs" ]
 ```
 
-### Get MVP Example
+### Retrieve File Content
 
-- **Endpoint**: `/api/get-mvp-example`
+- **Endpoint**: `/api/get-file/src/:fileName`
 - **Method**: `GET`
-- **Description**: Retrieve the MVP example.
+- **Description**: Retrieve the content of a specific project file.
 - **Response**:
 
-```json
-{ ... }
+```text
+<content of the file>
 ```
 
-### Get Prompt Text
+### Retrieve AI Prompt
 
 - **Endpoint**: `/api/get-prompt-text`
 - **Method**: `GET`
-- **Description**: Retrieve the constructed initial prompt text for GPT-4 API.
+- **Description**: Retrieve the constructed prompt text used for generating the MVP code.
 - **Response**:
 
 ```json
 {
-  "promptText": "Constructed prompt text"
+  "promptText": "<constructed prompt text>"
 }
 ```
 
-### Get GPT-4 Output
+### Retrieve JSON File Content
 
-- **Endpoint**: `/api/get-gpt4-output`
-- **Method**: `POST`
-- **Description**: Generate and retrieve the GPT-4 output based on the MVP example.
-- **Response**:
-
-```json
-{
-  "gpt4Output": "Generated Solana Anchor program code"
-}
-```
-
-### Get Saved GPT-4 Output
-
-- **Endpoint**: `/api/get-saved-output`
+- **Endpoint**: `/api/get-json/:directory/:fileName`
 - **Method**: `GET`
-- **Description**: Retrieve the saved GPT-4 output.
+- **Description**: Retrieve the contents of a JSON file from a specified directory.
 - **Response**:
 
-```json
-{
-  "gpt4Output": "Previously saved GPT-4 output"
-}
+```
+<content of the JSON file>
 ```
 
 ## Code Documentation
 
 ### Backend
 
-The backend code is located in the `backend` directory. The `index.js` file is the main entry point for the backend server. It initializes the server, sets up middleware, and defines various API endpoints.
+The backend is responsible for interacting with the OpenAI GPT-4 API, managing user data, and generating Solana Anchor programs based on user inputs. The core functionality includes prompt generation, code generation, and project file management.
 
-#### Modules and Dependencies
+#### Key Directories
 
-- **express**: Web framework for Node.js
-- **cors**: Middleware to enable CORS
-- **fs/promises**: File system module with promises
-- **path**: Utility module for file paths
-- **axios**: HTTP client for making API requests
-- **dotenv**: Module to load environment variables from a `.env` file
+- **ai/**: Stores AI-related data, including prompt texts and GPT-4 outputs.
+- **mvp-design/**: Contains example MVP designs and schemas.
+- **project/**: Hosts the generated Solana project files and related schemas.
+- **schemas/**: Includes example schemas and frameworks for structuring project files.
 
-#### Environment Setup
+#### Main File: `index.js`
 
-Load environment variables and set up the Express application:
-
-```javascript
-dotenv.config();
-const app = express();
-const port = 8000;
-app.use(express.json());
-app.use(cors());
-```
-
-#### File Paths
-
-Define paths for the JSON files used to store MVP information:
-
-```javascript
-const mvpInfoFilePath = path.join(__dirname, 'mvp-info.json');
-const mvpExampleFilePath = path.join(__dirname, 'mvp-example.json');
-const gpt4OutputPath = path.join(__dirname, 'gpt4_output.json');
-```
-
-#### Initialization
-
-Ensure required directories and files exist:
-
-```javascript
-async function initialize() {
-  await ensureDirectoryExists(path.dirname(mvpInfoFilePath));
-  const initialData = { ... };
-  await ensureFileExistsWithContent(mvpInfoFilePath, initialData);
-  await ensureFileExists(gpt4OutputPath);
-}
-initialize().catch(err => console.error('Initialization error:', err));
-```
-
-#### API Endpoints
-
-Define various API endpoints for saving, updating, and retrieving MVP information and generating GPT-4 outputs.
-
-#### GPT-4 API Integration
-
-Function to call the GPT-4 API with a constructed prompt:
-
-```javascript
-async function callGpt4Api(prompt) {
-  const response = await axios.post(
-    'https://api.openai.com/v1/chat/completions',
-    { model: 'gpt-4', messages: [{ role: 'user', content: prompt }], temperature: 0.7 },
-    { headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' } }
-  );
-  return response.data.choices[0].message.content.trim();
-}
-```
+- Initializes the backend server.
+- Defines API endpoints for generating code, retrieving project files, and more.
+- Integrates with the OpenAI API to generate Solana Anchor programs.
 
 ### Frontend
 
-The frontend code is located in the `frontend` directory. It consists of React components that allow users to input and manage the MVP data.
+The frontend provides a user interface for designing MVPs, generating code, and testing deployments. The application is structured into multiple components and pages, offering a seamless experience for users to create and manage their Solana projects.
 
-#### `public/index.html`
+#### Key Components
 
-The main HTML file for the frontend, setting up the React application.
+- **Design Components**: Handle the user input forms and drag-and-drop interfaces for defining the MVP structure.
+- **Edit Components**: Provide tools for editing generated code, including a code editor and file explorer.
+- **Test Components**: Facilitate the deployment and testing of the generated Solana programs.
 
-#### `src/pages/accountdesign/components/FunctionsForm.js`
+#### Pages
 
-A component for managing functions in the MVP data.
+- **Design**: Interface for specifying the MVP structure.
+- **Edit**: Interface for code generation and customization.
+- **Test**: Interface for deploying and testing the generated code.
 
-#### `src/pages/accountdesign/components/GeneralForm.js`
 
-A component for managing general information in the MVP data.
-
-#### `src/pages/accountdesign/components/OverallForm.js`
-
-A component that integrates all individual forms.
-
-#### `src/pages/accountdesign/components/ProgramAccountsForm.js`
-
-A component for managing program accounts in the MVP data.
-
-#### `src/pages/accountdesign/components/UserAccountsForm.js`
-
-A component for managing user accounts in the MVP data.
-
-#### `src/pages/accountdesign/AccountDesign.js`
-
-A main component for the Account Design page, including form handling and data fetching.
-
-#### `src/pages/DevnetPlayground.js`
-
-A component for the Devnet Playground page, allowing users to generate code using GPT-4 based on the MVP specifications.
-
-#### `src/App.js`
-
-The main application component, setting up routing and navigation.
-
-#### Styles
-
-CSS files for styling the application, including `App.css`, `index.css`, and component-specific styles.
-
-## Contributing
-
-Please feel free to submit issues and pull requests for any features or improvements.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+---

@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+      "instructions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "handlerFunction": { "type": "string" }
+          },
+          "required": ["name", "handlerFunction"]
+        }
+      }
+    },
+    "required": ["instructions"],
+    "example": {
+      "instructions": [
+        {
+          "name": "Create Vault",
+          "handlerFunction": "handle_create_vault"
+        }
+      ]
+    }
+  }
+  

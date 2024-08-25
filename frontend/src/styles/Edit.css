@@ -1,0 +1,66 @@
+/* Edit.css */
+
+.edit-page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+  background-color: #3f465e !important;
+  
+}
+
+.side-section {
+  width: 300px;
+  overflow-y: auto;
+
+}
+
+.file-explorer {
+  background: none;
+  height: 100%;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem;
+  justify-content: flex-start;
+  align-items: left;
+  border: solid #ccc 0.1px;
+  margin: 0 !important;
+}
+
+.editor-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #3f465e !important;
+  margin: 0 !important;
+}
+
+.code-editor-container {
+  flex: 1;
+  width: 100%;
+  background-color: #3f465e !important;
+}
+
+.monaco-editor { 
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #282b36;
+}
+
+.terminal-container {
+  height: 200px;
+  background-color: #333;
+  border-top: 1px solid #444;
+  color: #00ff00;
+  overflow-y: auto;
+  
+}
+.terminal-container input { 
+  background: none;
+  border: none;
+  width: 100%;
+}

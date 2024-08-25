@@ -1,0 +1,136 @@
+/* Styles specific to the Design page */
+
+.design-page {
+    padding: 20px;
+    background-color: #3f465e;
+    color: #f6f9f2;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  * {
+    padding: 0.1rem;
+  }
+
+  input {
+    margin: 0.1rem 0.3rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+  
+  .design-page h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  /* OverallForm Component Styles */
+  .overall-form {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+  }
+  
+  /* General Component Styles */
+  .general-form {
+    margin-bottom: 20px;
+  }
+  
+  .general-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* RolesForm Component Styles */
+  .roles-form {
+    margin-bottom: 20px;
+  }
+  
+  .roles-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Accounts Component Styles */
+  .accounts-form {
+    margin-bottom: 20px;
+  }
+  
+  .accounts-form label {
+    font-weight: bold;
+  }
+  
+  .accounts-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* ErrorHandling Component Styles */
+  .error-handling-section {
+    margin-bottom: 20px;
+  }
+  
+  .error-handling-section textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Instructions Component Styles */
+  .instructions-form {
+    margin-bottom: 20px;
+  }
+  
+  .instructions-form input, .instructions-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Integrations Component Styles */
+  .integrations-form {
+    margin-bottom: 20px;
+  }
+  
+  .integrations-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Security Component Styles */
+  .security-form {
+    margin-bottom: 20px;
+  }
+  
+  .security-form input, .security-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  

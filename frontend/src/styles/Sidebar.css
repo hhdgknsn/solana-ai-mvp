@@ -1,0 +1,35 @@
+/* Sidebar.css */
+.sidebar {
+  width: 60px; /* Fixed width for the sidebar */
+  background-color: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.sidebar a {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover span {
+  display: inline-block; /* Show text on hover */
+  margin-left: 10px;
+}
+
+.sidebar a:hover {
+  background-color: #333;
+}
+
+.sidebar .active-link {
+  background-color: #444;
+}

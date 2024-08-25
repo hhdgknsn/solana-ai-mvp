@@ -1,0 +1,41 @@
+{
+    "fileName": "utils.rs",
+    "functions": [
+      {
+        "name": "calculate_reward",
+        "description": "Calculates the reward based on the staking duration and amount.",
+        "parameters": [
+          {"paramName": "amount", "type": "u64"},
+          {"paramName": "duration", "type": "u64"}
+        ],
+        "returnType": "u64"
+      },
+      {
+        "name": "verify_signature",
+        "description": "Verifies a cryptographic signature using the provided public key and message.",
+        "parameters": [
+          {"paramName": "signature", "type": "[u8; 64]"},
+          {"paramName": "message", "type": "Vec<u8>"},
+          {"paramName": "public_key", "type": "[u8; 32]"}
+        ],
+        "returnType": "bool"
+      },
+      {
+        "name": "serialize_account_data",
+        "description": "Serializes the account data into a byte array.",
+        "parameters": [
+          {"paramName": "account_data", "type": "AccountData"}
+        ],
+        "returnType": "Vec<u8>"
+      },
+      {
+        "name": "deserialize_account_data",
+        "description": "Deserializes a byte array into account data.",
+        "parameters": [
+          {"paramName": "data", "type": "Vec<u8>"}
+        ],
+        "returnType": "AccountData"
+      }
+    ]
+  }
+  

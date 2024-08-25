@@ -1,0 +1,37 @@
+{
+    "type": "object",
+    "properties": {
+      "accounts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the account"
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "fieldName": {
+                    "type": "string",
+                    "description": "Name of the field"
+                  },
+                  "fieldType": {
+                    "type": "string",
+                    "description": "Data type of the field"
+                  }
+                },
+                "required": ["fieldName", "fieldType"]
+              }
+            }
+          },
+          "required": ["name", "fields"]
+        }
+      }
+    },
+    "required": ["accounts"]
+  }
+  

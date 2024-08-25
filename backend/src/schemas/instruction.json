@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+      "instructions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the instruction"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "paramName": {
+                    "type": "string",
+                    "description": "Name of the parameter"
+                  },
+                  "paramType": {
+                    "type": "string",
+                    "description": "Type of the parameter"
+                  }
+                },
+                "required": ["paramName", "paramType"]
+              }
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of what the instruction does"
+            }
+          },
+          "required": ["name", "parameters", "description"]
+        }
+      }
+    },
+    "required": ["instructions"]
+  }
+  
