@@ -108,8 +108,7 @@ README.md
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/mytoken.git
-cd mytoken
+git clone https://github.com/hhdgknsn/solana-ai-mvp
 ```
 
 2. Install backend dependencies:
@@ -229,9 +228,9 @@ The backend is responsible for interacting with the OpenAI GPT-4 API, managing u
 #### Key Directories
 
 - **ai/**: Stores AI-related data, including prompt texts and GPT-4 outputs.
-- **mvp-design/**: Contains example MVP designs and schemas.
-- **project/**: Hosts the generated Solana project files and related schemas.
-- **schemas/**: Includes example schemas and frameworks for structuring project files.
+- **mvp-design/**: Contains frameworks for storing user input, example MVP designs and schemas.
+- **project/**: Stores the generated Solana project files and related schemas.
+- **schemas/**: Includes example schemas and frameworks for structuring project files, used to enhance the prompts sent to the model.
 
 #### Main File: `index.js`
 
@@ -241,7 +240,7 @@ The backend is responsible for interacting with the OpenAI GPT-4 API, managing u
 
 ### Frontend
 
-The frontend provides a user interface for designing MVPs, generating code, and testing deployments. The application is structured into multiple components and pages, offering a seamless experience for users to create and manage their Solana projects.
+The frontend provides a user interface for designing MVPs, generating code, and testing deployments. The application is structured into multiple components and pages, allowing users to create and manage their Solana projects.
 
 #### Key Components
 
