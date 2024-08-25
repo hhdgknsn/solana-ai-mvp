@@ -8,8 +8,6 @@
 - [Code Documentation](#code-documentation)
   - [Backend](#backend)
   - [Frontend](#frontend)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Structure
 
