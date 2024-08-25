@@ -1,5 +1,3 @@
----
-
 # AI-Powered Solana MVP Generator
 
 ## Table of Contents
@@ -256,6 +254,3 @@ The frontend provides a user interface for designing MVPs, generating code, and 
 - **Design**: Interface for specifying the MVP structure.
 - **Edit**: Interface for code generation and customization.
 - **Test**: Interface for deploying and testing the generated code.
-
-
----
