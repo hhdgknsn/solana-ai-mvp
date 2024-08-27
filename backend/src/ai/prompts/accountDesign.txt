@@ -1,0 +1,36 @@
+Account Design Specifications:
+
+User Accounts:
+{% for account in accountDesign.userAccounts %}
+- Account Type: {{ account.accountType }}
+  - Public Key: {{ account.publicKey }}
+  - Private Key: {{ account.privateKey }}
+  - Owner: {{ account.owner }}
+  - Balance: {{ account.balance }}
+  - Permissions: {{ account.permissions | join(', ') }}
+  - Metadata:
+    - Created At: {{ account.metadata.createdAt }}
+    - Updated At: {{ account.metadata.updatedAt }}
+  - Security:
+    - Encryption: {{ account.security.encryption }}
+    - MultiSig Enabled: {{ account.security.multiSig }}
+    - Authorized Users: {{ account.security.authorizedUsers | join(', ') }}
+
+{% endfor %}
+
+Program Accounts:
+{% for account in accountDesign.programAccounts %}
+- *ccount Type: {{ account.accountType }}
+  - Public Key: {{ account.publicKey }}
+  - Owner: {{ account.owner }}
+  - Name: {{ account.name }}
+  - Permissions: {{ account.permissions | join(', ') }}
+  - Settings:
+    - Execution Environment: {{ account.settings.executionEnvironment }}
+    - Initialization Parameters: {{ account.settings.initializationParams }}
+    - Security Settings:
+      - Access Control: {{ account.settings.securitySettings.accessControl | join(', ') }}
+      - Audit Logging Enabled: {{ account.settings.securitySettings.auditLogging }}
+  - Metadata:
+    - Created At: {{ account.metadata.createdAt }}
+    - Updated At: {{ account.metadata.updatedAt }}

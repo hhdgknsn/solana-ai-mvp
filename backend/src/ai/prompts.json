@@ -1,0 +1,8 @@
+{
+  "accounts": "{{accountsStr}}",
+  "instructions": "{{instructionsStr}}",
+  "roles": "{{rolesStr}}",
+  "security": "{{securityStr}}",
+  "errorHandling": "{{errorHandlingStr}}",
+  "integrationPoints": "{{integrationPointsStr}}"
+}
